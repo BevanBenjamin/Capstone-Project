@@ -5,7 +5,15 @@ python-dotenv
 google-generativeai
 google-cloud-speech
 google-cloud-texttospeech
-pydub
 geopy
 langdetect
 gunicorn
+soundfile
+pydub==0.25.1
+ffmpeg-python==0.2.0
+gTTS
+torch
+sentencepiece
+python-multipart 
+
+
