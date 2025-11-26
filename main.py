@@ -4,6 +4,7 @@ import uuid
 import logging
 import base64
 import datetime
+import difflib
 from typing import Optional, List, Dict, Any, Union
 from enum import Enum
 
@@ -13,6 +14,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import Form
 from fastapi import Request
+import smtplib
+from email.message import EmailMessage
+from smtplib import SMTPAuthenticationError, SMTPException
 
 import re
 from pydantic import BaseModel
@@ -33,8 +37,92 @@ USER_LOCATION_CACHE: Dict[str, Dict[str, float]] = {}
 
 load_dotenv()
 
+
+STATIONS_FILE_PATH = os.path.join(os.path.dirname(__file__), "data", "stations.json")
+
+# --- GLOBAL STATION DATA STORE ---
+STATION_ALIASES = {}      # alias (lowercase) -> code (uppercase)
+STATION_CODES = set()     # set of valid station codes
+STATION_NAMES = {}        # code -> Official Station Name
+
+def load_station_aliases():
+    global STATION_ALIASES, STATION_CODES, STATION_NAMES
+    try:
+        with open(STATIONS_FILE_PATH, "r", encoding="utf-8") as fh:
+            raw = json.load(fh)
+    except FileNotFoundError:
+        logging.warning("⚠️ stations.json not found. Autocomplete will be empty.")
+        raw = {}
+
+    STATION_ALIASES = {}
+    STATION_CODES = set()
+    STATION_NAMES = {}
+
+    for code, data in raw.items():
+        # Normalize code
+        code = code.strip().upper()
+        STATION_CODES.add(code)
+        
+        # Extract Name and Aliases based on your JSON structure
+        # Structure: { "CODE": { "name": "Official Name", "aliases": [...] } }
+        official_name = data.get("name", code)
+        STATION_NAMES[code] = official_name
+        
+        # 1. Map the code itself (lowercase) -> CODE
+        STATION_ALIASES[code.lower()] = code
+        
+        # 2. Map the official name (lowercase) -> CODE
+        STATION_ALIASES[official_name.lower()] = code
+
+        # 3. Map all aliases -> CODE
+        aliases = data.get("aliases", [])
+        if isinstance(aliases, list):
+            for a in aliases:
+                if a:
+                    STATION_ALIASES[a.strip().lower()] = code
+
+load_station_aliases()
+
 # Set seed for consistent language detection
 DetectorFactory.seed = 0
+
+
+def resolve_station_code(user_input: str, cutoff: float = 0.75) -> Optional[str]:
+    """
+    Given any user input (e.g., "bangalore", "ksr", "SBC"), return the station code (e.g., "SBC").
+    Steps:
+      1. Normalize input (lowercase, strip)
+      2. Try exact alias lookup
+      3. If not found, try difflib.get_close_matches against known aliases
+      4. As final fallback, if input itself *looks like* a code (2-5 uppercase letters), return upper(input)
+    Returns station code string (uppercase) or None if unresolved.
+    """
+    if not user_input:
+        return None
+    s = user_input.strip().lower()
+
+    # exact alias
+    if s in STATION_ALIASES:
+        return STATION_ALIASES[s]
+
+    # try fuzzy match against alias list
+    matches = difflib.get_close_matches(s, STATION_ALIASES_LIST, n=1, cutoff=cutoff)
+    if matches:
+        matched_alias = matches[0]
+        return STATION_ALIASES.get(matched_alias)
+
+    # maybe user typed the code directly (e.g., "HYB" or "hyb")
+    candidate = user_input.strip().upper()
+    if 2 <= len(candidate) <= 5 and candidate.isalnum():
+        # if we know it already, return canonical; else still return candidate (optional)
+        if candidate in STATION_CODES:
+            return candidate
+        # If you prefer to not accept unknown codes, return None instead:
+        # return None
+        return candidate
+
+    return None
+
 
 SYSTEM_INSTRUCTION = (
     "You are RailInfo Assistant, a smart, friendly, and conversational AI specialized in Indian Railways. "
@@ -213,6 +301,25 @@ async def call_rapidapi(endpoint: str, params: Dict[str, Union[str, int]]):
     except requests.exceptions.RequestException as e:
         logging.error(f"❌ RapidAPI request error for {endpoint}: {e}")
         return {"error": f"Failed to connect to the railway information service: {e}"}
+
+# ------------------------
+# Station resolution wrappers for endpoints
+# ------------------------
+
+def _ensure_station_code(raw_input: str) -> str:
+    """
+    Resolve a user-provided station name/code to canonical station code.
+    If resolver returns None, fall back to the raw uppercased input.
+    """
+    if not raw_input:
+        return raw_input
+    try:
+        resolved = resolve_station_code(raw_input)
+    except Exception as e:
+        logging.warning(f"Station resolution error for '{raw_input}': {e}")
+        resolved = None
+    # return resolved code or fallback to raw input uppercased (so existing logic keeps working)
+    return (resolved or raw_input.strip().upper())
 
 # ------------------------
 # Railway API Tool Functions
@@ -481,195 +588,336 @@ async def speech_to_text(
 # Main Chatbot Logic (Fixed Function Calling)
 # ------------------------
 
-async def call_gemini_with_tools(user_query: str, lang: str) -> str:
+async def call_gemini_with_tools(user_query: str, lang: str, history_text: str = "") -> str:
     """
     Uses Gemini Function Calling (Tools) to get a response, executing required tools in the process.
-    Responds in the specified language.
+    Accepts optional history_text to provide context to the model.
     """
     if not model:
         return "Chatbot service is unavailable due to missing API key."
 
-    # Enhanced prompt that emphasizes responding in the detected language
-    language_prompt = f"User query in language '{lang}': {user_query}. You MUST respond in {lang} language only."
-    
-    # Tools are now configured in the GenerativeModel constructor.
-    chat = model.start_chat() 
-    
-    response = chat.send_message(language_prompt)
-    
+    # Build context-aware prompt: include short history summary if present
+    history_prompt = ""
+    if history_text:
+        history_prompt = f"Conversation history (use for context, do not repeat):\n{history_text}\n\n"
+
+    language_prompt = f"{history_prompt}User query in language '{lang}': {user_query}. You MUST respond in {lang} language only."
+
+    # Start chat and request model response
+    chat = model.start_chat()
+    try:
+        response = chat.send_message(language_prompt)
+    except Exception as e:
+        logging.exception(f"Error sending message to model: {e}")
+        return "⚠️ Chatbot backend error: failed to contact model."
+
+    # Safely extract tool calls (defensive: many Gemini responses may not include these fields)
     tool_calls = []
-    if response.candidates and response.candidates[0].content.parts:
-        tool_calls.extend([
-            part.function_call
-            for part in response.candidates[0].content.parts
-            if part.function_call
-        ])
-    
-    if tool_calls:
-        function_responses = []
-        # Use the correctly extracted tool_calls list
-        for function_call in tool_calls:
-            try:
-                func = globals()[function_call.name]
-                # Await the async tool function
-                tool_output = await func(**dict(function_call.args))
-                
-                function_responses.append(genai.types.Part.from_function_response(
-                    name=function_call.name,
-                    response=tool_output
-                ))
-                
-            except Exception as e:
-                logging.error(f"❌ Tool execution error for {function_call.name}: {e}")
-                function_responses.append(genai.types.Part.from_function_response(
-                    name=function_call.name,
-                    response={"error": "The external railway API failed to process the request."}
-                ))
-        
-        # Send the tool responses back to the model with language reminder
-        final_response_prompt = f"Based on the tool responses, provide the answer in {lang} language:"
+    try:
+        if getattr(response, "candidates", None):
+            candidate = response.candidates[0]
+            content = getattr(candidate, "content", None)
+            parts = getattr(content, "parts", None)
+            if parts:
+                for part in parts:
+                    fc = getattr(part, "function_call", None)
+                    if fc:
+                        tool_calls.append(fc)
+    except Exception as e:
+        logging.exception(f"Error extracting tool calls from model response: {e}")
+
+    # If there are no tool calls, return the model text response directly (normal conversational reply)
+    if not tool_calls:
+        try:
+            # response.text is the typical simple text return -- fallback to candidates content if missing
+            return getattr(response, "text", None) or (
+                getattr(response.candidates[0].content, "text", "") if getattr(response, "candidates", None) else ""
+            ) or "Sorry, I couldn't produce an answer."
+        except Exception:
+            return "Sorry, I couldn't produce an answer."
+
+    # Otherwise, execute each tool call
+    function_responses: List[str] = []  # ensure defined in all cases
+
+    for function_call in tool_calls:
+        try:
+            func_name = function_call.name
+            logging.info(f"Tool requested: {func_name} with args={function_call.args}")
+            if func_name not in globals() or not callable(globals()[func_name]):
+                logging.error(f"Unknown tool requested: {func_name}")
+                payload = json.dumps({
+                    "tool": func_name,
+                    "result": {"error": f"Unknown tool: {func_name}"}
+                }, ensure_ascii=False)
+                function_responses.append(payload)
+                continue
+
+            func = globals()[func_name]
+            # function_call.args may be an object; convert to dict if needed
+            args = dict(function_call.args) if hasattr(function_call, "args") else {}
+            tool_output = await func(**args)
+
+            payload = json.dumps({
+                "tool": func_name,
+                "result": tool_output
+            }, ensure_ascii=False)
+            function_responses.append(payload)
+
+        except Exception as e:
+            logging.exception(f"❌ Tool execution error for {getattr(function_call,'name', 'unknown')}: {e}")
+            payload = json.dumps({
+                "tool": getattr(function_call, "name", "unknown"),
+                "result": {"error": "The external railway API failed to process the request."}
+            }, ensure_ascii=False)
+            function_responses.append(payload)
+
+    # Ask the model to summarize the tool outputs into a user-facing answer
+    final_response_prompt = f"Below are tool response payloads. Using them, provide a concise user-facing answer in {lang}:"
+    try:
         final_response = chat.send_message([final_response_prompt] + function_responses)
-        return final_response.text
-    
-    return response.text
+        return getattr(final_response, "text", None) or (
+            getattr(final_response.candidates[0].content, "text", "") if getattr(final_response, "candidates", None) else ""
+        ) or "Sorry, I couldn't produce an answer from the tool outputs."
+    except Exception as e:
+        logging.exception(f"Error sending final tool payloads to model: {e}")
+        return "⚠️ Chatbot backend error while summarizing tool responses."
+
 
 @app.post("/chatbot/")
 async def unified_chatbot_voice_or_text(
     request: Request,
     file: Optional[UploadFile] = File(None),
     query: Optional[str] = Form(None),
-    src_lang: str = Form("en")
+    src_lang: str = Form("en"),
+    history: Optional[str] = Form(None),
 ):
     """
     Unified chatbot endpoint for both voice (file) and text queries.
-    Handles PNR, train info, and emergency location-aware services with memory.
+    Handles PNR, train info, emergency nearby queries and uses optional
+    client-provided history for context when falling back to Gemini.
     """
 
-    user_text = ""
-    detected_language = src_lang
-    user_id = request.client.host  # approximate unique key for caching
+    # --- Defensive initializations (avoid UnboundLocalError) ---
+    user_text: str = ""
+    detected_language: str = src_lang or "en"
+    bot_response_text: Optional[str] = None
+    bot_audio_base64: str = ""
+    history_text: str = ""
+    # request.client may be None in some ASGI hosts; use safe fallback
+    user_id = getattr(getattr(request, "client", None), "host", "unknown_client")
 
+    # --- Parse compact history if provided (client sends JSON array of {role,text,ts}) ---
+    if history:
+        try:
+            hist_list = json.loads(history)
+            N = 16
+            hist_small = hist_list[-N:]
+            compressed_lines = []
+            for item in hist_small:
+                role = item.get("role", "user")
+                text = item.get("text", "")
+                text = re.sub(r"\s+", " ", text).strip()
+                compressed_lines.append(f"{role}: {text}")
+            history_text = "\n".join(compressed_lines)
+        except Exception as e:
+            logging.warning(f"Failed to parse history payload: {e}")
+            history_text = ""
+
+    # --- Handle file (voice) input first (async STT) ---
     if file:
         try:
             stt_response = await speech_to_text(file=file, src_lang=src_lang)
-            user_text = json.loads(stt_response.body.decode()).get("transcript", "")
-            if not user_text:
-                return JSONResponse({
-                    "user_text": "[Unrecognized speech]",
-                    "bot_response": "Sorry, I couldn't understand your voice command.",
-                    "bot_audio": "",
-                    "detected_language": "en"
-                })
-            detected_language = await detect_language(user_text)
+            # Expecting a response object with .body that can be decoded to JSON like in your earlier code
+            body_text = getattr(stt_response, "body", None)
+            if body_text:
+                parsed = json.loads(body_text.decode() if isinstance(body_text, (bytes, bytearray)) else body_text)
+                user_text = parsed.get("transcript", "") or ""
+            else:
+                user_text = ""
         except Exception as e:
-            logging.error(f"STT error: {e}")
+            logging.exception(f"STT error: {e}")
             return JSONResponse({
                 "user_text": "[STT Error]",
                 "bot_response": "Speech-to-text failed. Please try again.",
                 "bot_audio": "",
-                "detected_language": "en"
+                "detected_language": detected_language
             }, status_code=500)
+
+        if not user_text:
+            return JSONResponse({
+                "user_text": "[Unrecognized speech]",
+                "bot_response": "Sorry, I couldn't understand your voice command.",
+                "bot_audio": "",
+                "detected_language": detected_language
+            })
+
+        # Detect language of the transcribed text if detector is available
+        try:
+            detected_language = await detect_language(user_text)
+        except Exception:
+            # fallback to src_lang already set
+            logging.debug("Language detection failed; using src_lang/fallback.")
+
+    # --- Handle text (query) input if no voice file ---
     elif query:
         user_text = query.strip()
-        if user_text and len(user_text) > 10:
-            detected_language = await detect_language(user_text)
+        if user_text:
+            # Optional: only run language detection for longer queries to save calls
+            if len(user_text) > 10:
+                try:
+                    detected_language = await detect_language(user_text)
+                except Exception:
+                    logging.debug("Language detection failed for text query; using src_lang/fallback.")
+        else:
+            # empty string provided
+            raise HTTPException(status_code=400, detail="Empty 'query' provided.")
 
+    # If we still don't have any user_text, return a 400
     if not user_text:
         raise HTTPException(status_code=400, detail="No query or audio file provided.")
 
     logging.info(f"🧠 Query ({detected_language}): {user_text}")
     query_lower = user_text.lower()
-    bot_response_text = None
 
-    # --- Detect and cache user location if provided ---
-    lat_match = re.search(r"latitude\s*([\d.]+)", query_lower)
-    lng_match = re.search(r"longitude\s*([\d.]+)", query_lower)
-    if lat_match and lng_match:
-        USER_LOCATION_CACHE[user_id] = {
-            "lat": float(lat_match.group(1)),
-            "lng": float(lng_match.group(1))
-        }
-        bot_response_text = "✅ Got your location! You can now ask for nearby police stations, ATMs, or hotels."
+    # --- Detect & cache explicit latitude/longitude if user provided it in the query text ---
+    try:
+        lat_match = re.search(r"latitude\s*[:=]?\s*([-+]?\d{1,3}(?:\.\d+)?)", query_lower)
+        lng_match = re.search(r"longitude\s*[:=]?\s*([-+]?\d{1,3}(?:\.\d+)?)", query_lower)
+        if lat_match and lng_match:
+            USER_LOCATION_CACHE[user_id] = {
+                "lat": float(lat_match.group(1)),
+                "lng": float(lng_match.group(1))
+            }
+            bot_response_text = "✅ Got your location! You can now ask for nearby police stations, ATMs, or hotels."
+    except Exception:
+        logging.debug("Error parsing lat/lng from query; continuing.")
 
-    # --- Handle railway automations ---
-    pnr_match = re.search(r"\b\d{10}\b", query_lower)
-    if not bot_response_text and pnr_match:
-        pnr_number = pnr_match.group(0)
-        api_result = await get_pnr_status(pnr_number)
-        if "error" in api_result:
-            bot_response_text = f"⚠️ Unable to fetch details for PNR {pnr_number}. Error: {api_result['error']}"
-        else:
-            data = api_result["data"].get("data", {})
-            passengers = data.get("passengers", [])
-            info = "\n".join(
-                [f"👤 Passenger {p['no']}: {p['current_status']}" for p in passengers]
-            )
-            bot_response_text = (
-                f"🚆 *PNR {pnr_number}*\n"
-                f"Train: {data.get('train_name', 'N/A')}\n"
-                f"Date: {data.get('doj', 'N/A')}\n"
-                f"{info or 'No passenger details found.'}"
-            )
-
-    elif not bot_response_text and ("live" in query_lower and "train" in query_lower):
-        train_num_match = re.search(r"\b\d{4,5}\b", query_lower)
-        if train_num_match:
-            train_number = train_num_match.group(0)
-            api_result = await get_live_train_status(train_number, start_day=0)
-            if "error" in api_result:
-                bot_response_text = f"⚠️ Could not fetch live status for train {train_number}. Error: {api_result['error']}"
-            else:
-                pos = api_result["data"].get("data", {}).get("position", "No data.")
-                bot_response_text = f"🚉 Train {train_number} Live Status:\n{pos}"
-        else:
-            bot_response_text = "Please provide a valid train number."
-
-    elif not bot_response_text and ("schedule" in query_lower or "route" in query_lower):
-        train_num_match = re.search(r"\b\d{4,5}\b", query_lower)
-        if train_num_match:
-            train_number = train_num_match.group(0)
-            api_result = await get_train_schedule(train_number)
-            if "error" in api_result:
-                bot_response_text = f"⚠️ Could not fetch schedule for train {train_number}. Error: {api_result['error']}"
-            else:
-                route = api_result["data"].get("data", {}).get("route", [])
-                stops = [f"{i+1}. {r['station_name']} ({r['station_code']})" for i, r in enumerate(route[:6])]
-                bot_response_text = "🗓️ " + "\n".join(stops)
-        else:
-            bot_response_text = "Please enter a valid train number."
-
-    # --- Handle emergency / nearby queries ---
-    elif not bot_response_text and any(k in query_lower for k in ["nearest", "nearby", "close", "around"]):
-        if any(w in query_lower for w in ["police", "hospital", "atm", "hotel", "restaurant", "pharmacy"]):
-            service = next((w for w in ["police", "hospital", "atm", "hotel", "restaurant", "pharmacy"] if w in query_lower), None)
-            coords = USER_LOCATION_CACHE.get(user_id)
-            if coords:
-                url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={coords['lat']},{coords['lng']}&radius=3000&type={service}&key={GOOGLE_MAPS_API_KEY}"
-                res = requests.get(url).json()
-                if res.get("results"):
-                    places = [
-                        f"{i+1}. {p['name']} - {p.get('vicinity', 'N/A')}\n🔗 [View on Map](http://googleusercontent.com/maps.google.com/6{p['place_id']})"
-                        for i, p in enumerate(res["results"][:5])
-                    ]
-                    bot_response_text = f"📍 Nearest {service.capitalize()}s near you:\n" + "\n".join(places)
-                else:
-                    bot_response_text = f"⚠️ No nearby {service}s found within 3 km."
-            else:
-                bot_response_text = (
-                    f"📍 To find the nearest {service}, please share your location like:\n"
-                    "'My location is latitude 12.97 and longitude 77.59.'"
-                )
-
-    # --- Fallback to Gemini ---
+    # --- Railway: PNR check (10-digit PNR) ---
     if not bot_response_text:
-        bot_response_text = await call_gemini_with_tools(user_text, detected_language)
+        try:
+            pnr_match = re.search(r"\b\d{10}\b", query_lower)
+            if pnr_match:
+                pnr_number = pnr_match.group(0)
+                api_result = await get_pnr_status(pnr_number)
 
-    # --- Text to Speech if needed ---
-    bot_audio_base64 = ""
-    if file:
-        tts = await text_to_speech_cloud(bot_response_text, detected_language)
-        bot_audio_base64 = tts.get("bot_audio", "")
+                if isinstance(api_result, dict) and "error" in api_result:
+                    bot_response_text = f"⚠️ Unable to fetch details for PNR {pnr_number}. Error: {api_result['error']}"
+                else:
+                    data = api_result.get("data", {}).get("data", {})
+                    passengers = data.get("passengers", [])
 
+                    if passengers:
+                        info_lines = [
+                            f"👤 Passenger {p.get('no')}: {p.get('current_status')}"
+                            for p in passengers
+                        ]
+                        passengers_str = "\n".join(info_lines)
+                    else:
+                        passengers_str = "No passenger details found."
+
+                    bot_response_text = (
+                        f"🚆 PNR {pnr_number}\n"
+                        f"Train: {data.get('train_name', 'N/A')}\n"
+                        f"Date: {data.get('doj', 'N/A')}\n"
+                        f"{passengers_str}"
+                    )
+
+        except Exception as e:
+            logging.exception(f"PNR handler error: {e}")
+            bot_response_text = f"⚠️ Error while fetching PNR details: {str(e)}"
+
+    # --- Railway: Live train status ---
+    if not bot_response_text and "live" in query_lower and "train" in query_lower:
+        try:
+            train_num_match = re.search(r"\b\d{4,5}\b", query_lower)
+            if train_num_match:
+                train_number = train_num_match.group(0)
+                api_result = await get_live_train_status(train_number, start_day=0)
+                if isinstance(api_result, dict) and "error" in api_result:
+                    bot_response_text = f"⚠️ Could not fetch live status for train {train_number}. Error: {api_result['error']}"
+                else:
+                    pos = api_result.get("data", {}).get("data", {}).get("position", "No data.") if api_result else "No data."
+                    bot_response_text = f"🚉 Train {train_number} Live Status:\n{pos}"
+            else:
+                bot_response_text = "Please provide a valid train number for live status."
+        except Exception as e:
+            logging.exception(f"Live train handler error: {e}")
+            bot_response_text = "⚠️ Error fetching live train status."
+
+    # --- Railway: Schedule / Route ---
+    if not bot_response_text and ("schedule" in query_lower or "route" in query_lower):
+        try:
+            train_num_match = re.search(r"\b\d{4,5}\b", query_lower)
+            if train_num_match:
+                train_number = train_num_match.group(0)
+                api_result = await get_train_schedule(train_number)
+                if isinstance(api_result, dict) and "error" in api_result:
+                    bot_response_text = f"⚠️ Could not fetch schedule for train {train_number}. Error: {api_result['error']}"
+                else:
+                    route = api_result.get("data", {}).get("data", {}).get("route", []) if api_result else []
+                    stops = [f"{i+1}. {r.get('station_name','')} ({r.get('station_code','')})" for i, r in enumerate(route[:6])]
+                    bot_response_text = "🗓️ " + ("\n".join(stops) if stops else "No route data available.")
+            else:
+                bot_response_text = "Please enter a valid train number to get the schedule."
+        except Exception as e:
+            logging.exception(f"Schedule handler error: {e}")
+            bot_response_text = "⚠️ Error fetching train schedule."
+
+    # --- Nearby / Emergency queries (requires cached user location) ---
+    if not bot_response_text and any(k in query_lower for k in ["nearest", "nearby", "close", "around"]):
+        try:
+            services = ["police", "hospital", "atm", "hotel", "restaurant", "pharmacy"]
+            if any(s in query_lower for s in services):
+                service = next((s for s in services if s in query_lower), None)
+                coords = USER_LOCATION_CACHE.get(user_id)
+                if coords:
+                    # Note: using requests (blocking) — keep this simple; consider async http client later
+                    url = (
+                        f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+                        f"?location={coords['lat']},{coords['lng']}&radius=3000&type={service}&key={GOOGLE_MAPS_API_KEY}"
+                    )
+                    try:
+                        res = requests.get(url, timeout=8).json()
+                        results = res.get("results", [])
+                        if results:
+                            places = [
+                                f"{i+1}. {p.get('name','N/A')} - {p.get('vicinity','N/A')}"
+                                for i, p in enumerate(results[:5])
+                            ]
+                            bot_response_text = f"📍 Nearest {service.capitalize()}s near you:\n" + "\n".join(places)
+                        else:
+                            bot_response_text = f"⚠️ No nearby {service}s found within 3 km."
+                    except Exception as re_err:
+                        logging.exception(f"Google Places request failed: {re_err}")
+                        bot_response_text = f"⚠️ Could not query nearby {service} due to an API/network error."
+                else:
+                    bot_response_text = (
+                        f"📍 To find the nearest {service}, please share your location like:\n"
+                        "'My location is latitude 12.97 and longitude 77.59.'"
+                    )
+        except Exception as e:
+            logging.exception(f"Nearby handler error: {e}")
+            bot_response_text = "⚠️ Error processing nearby search."
+
+    # --- Final fallback to Gemini (context-aware) ---
+    if not bot_response_text:
+        try:
+            # Pass compacted history_text (may be empty) to your Gemini wrapper
+            bot_response_text = await call_gemini_with_tools(user_text, detected_language, history_text)
+        except Exception as e:
+            logging.exception(f"Gemini fallback failed: {e}")
+            bot_response_text = "⚠️ Chatbot backend failed to generate a response. Please try again later."
+
+    # --- If original request was a voice file, synthesize TTS audio ---
+    if file and bot_response_text:
+        try:
+            tts = await text_to_speech_cloud(bot_response_text, detected_language)
+            bot_audio_base64 = tts.get("bot_audio", "") if isinstance(tts, dict) else ""
+        except Exception as e:
+            logging.exception(f"TTS error: {e}")
+            bot_audio_base64 = ""
+
+    # --- Return structured response ---
     return JSONResponse({
         "user_text": user_text,
         "bot_response": bot_response_text,
@@ -690,25 +938,65 @@ async def pnr_status_endpoint(pnr: str = Query(...)):
     return result["data"]
 
 @app.get("/train-status/")
-async def train_status_endpoint(train_no: str = Query(...), start_day: int = Query(0)):
+async def train_status_endpoint(train_no: str = Query(...), start_day: int = Query(1)):
     result = await get_live_train_status(train_no, start_day)
     if result.get("error"):
         raise HTTPException(status_code=500, detail=result["error"])
     return result["data"]
 
 @app.get("/search-trains/")
-async def search_trains_endpoint(from_station: str = Query(...), to_station: str = Query(...), date: str = Query(...)):
-    result = await search_trains_between_stations(from_station, to_station, date)
+async def search_trains_endpoint(
+    from_station: str = Query(..., alias="from_station"),
+    to_station: str = Query(..., alias="to_station"),
+    date: str = Query(..., alias="date")
+):
+    """
+    Search trains between two user-provided station names or codes.
+    This endpoint will resolve common place names -> station codes using the stations.json mapping.
+    """
+    src_code = _ensure_station_code(from_station)
+    dst_code = _ensure_station_code(to_station)
+
+    logging.info(f"SearchTrains: resolved '{from_station}' -> {src_code}, '{to_station}' -> {dst_code}, date={date}")
+
+    result = await search_trains_between_stations(src_code, dst_code, date)
     if result.get("error"):
+        logging.error(f"Search trains API error: {result.get('error')}")
         raise HTTPException(status_code=500, detail=result["error"])
     return result["data"]
 
 @app.get("/seat-availability/")
-async def seat_availability_endpoint(train_no: str = Query(...), from_station: str = Query(...), to_station: str = Query(...), date: str = Query(...), class_code: str = Query(...), quota: str = Query("GN")):
-    result = await get_seat_availability(train_no, from_station, to_station, date, class_code, quota)
+async def seat_availability_endpoint(
+    train_no: str = Query(..., alias="train_no"),
+    from_station: str = Query(..., alias="from_station"),
+    to_station: str = Query(..., alias="to_station"),
+    date: str = Query(..., alias="date"),
+    class_code: str = Query(..., alias="class_code"),
+    quota: str = Query("GN", alias="quota")
+):
+    """
+    Check seat availability for a train between two stations.
+    Input station values can be place names or station codes; they will be resolved server-side.
+    """
+    src_code = _ensure_station_code(from_station)
+    dst_code = _ensure_station_code(to_station)
+
+    logging.info(f"SeatAvailability: resolved '{from_station}' -> {src_code}, '{to_station}' -> {dst_code}, train={train_no}, date={date}")
+
+    result = await get_seat_availability(train_no, src_code, dst_code, date, class_code, quota)
     if result.get("error"):
+        logging.error(f"Seat availability API error: {result.get('error')}")
         raise HTTPException(status_code=500, detail=result["error"])
     return result["data"]
+
+@app.get("/resolve-station/")
+async def resolve_station_endpoint(q: str = Query(..., alias="q")):
+    """
+    Resolve a station name/code to a station code (for debugging/testing).
+    Example: /resolve-station/?q=bangalore  -> { "code": "SBC", "input": "bangalore" }
+    """
+    resolved = resolve_station_code(q)
+    return {"input": q, "code": resolved or q.strip().upper()}
 
 @app.get("/train-schedule/")
 async def train_schedule_endpoint(train_no: str = Query(...)):
@@ -718,9 +1006,226 @@ async def train_schedule_endpoint(train_no: str = Query(...)):
     return result["data"]
 
 @app.get("/station-autocomplete/")
-async def station_autocomplete(query_str: str = Query(...)):
-    # Placeholder for a real station autocomplete API call
-    return {"status": "success", "data": [{"station_name": f"{query_str} Station", "station_code": query_str.upper()}]}
+async def station_autocomplete(query_str: str = Query(..., min_length=1)):
+    """
+    Real search implementation.
+    Searches station codes, names, and aliases.
+    """
+    if not query_str:
+        return {"status": "success", "data": []}
+
+    query = query_str.lower().strip()
+    results = []
+    seen_codes = set()
+
+    # Priority 1: Exact Code Match (e.g., input "SBC")
+    if query.upper() in STATION_CODES:
+        code = query.upper()
+        results.append({
+            "station_name": STATION_NAMES.get(code, code), 
+            "station_code": code
+        })
+        seen_codes.add(code)
+
+    # Priority 2: Substring Search in Aliases/Names
+    # We iterate through the dictionary. 
+    # (For production with <10k stations, this is fast enough. For larger, use a Trie or DB)
+    count = 0
+    limit = 10 # Limit results to keep UI clean
+    
+    for alias, code in STATION_ALIASES.items():
+        if code in seen_codes:
+            continue
+            
+        # Check if user query is inside the station name or alias
+        if query in alias:
+            results.append({
+                "station_name": STATION_NAMES.get(code, code), 
+                "station_code": code
+            })
+            seen_codes.add(code)
+            count += 1
+            
+        if count >= limit:
+            break
+
+    # If no results found, return empty list (UI handles this)
+    if not results:
+         return {"status": "success", "data": []}
+
+    return {"status": "success", "data": results}
+
+@app.post("/contact/")
+async def contact_submit(
+    name: str = Form(...),
+    email: str = Form(...),
+    message: str = Form(...),
+):
+    """
+    Debug-friendly contact handler:
+    - logs masked env values
+    - attempts SMTP with debug output to server logs
+    - writes every submission to contacts.log (fallback)
+    - never returns 500 due to SMTP auth errors
+    """
+    # Load config from environment (ensure load_dotenv() was called at app start)
+    PERSONAL_EMAIL = os.getenv("PERSONAL_EMAIL")
+    SMTP_SERVER = os.getenv("SMTP_SERVER")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
+    SMTP_USERNAME = os.getenv("SMTP_USERNAME")
+    SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+    SENDER_EMAIL = os.getenv("SENDER_EMAIL") or SMTP_USERNAME or "no-reply@example.com"
+
+    # Log loaded values (mask sensitive parts)
+    def mask(s):
+        if not s:
+            return "<MISSING>"
+        if "@" in s:
+            local, domain = s.split("@", 1)
+            return local[:1] + "***@" + domain
+        return s[:1] + "***"
+    logging.info(f"Contact submit received. PERSONAL_EMAIL={mask(PERSONAL_EMAIL)}, SMTP_SERVER={SMTP_SERVER}, SMTP_PORT={SMTP_PORT}, SMTP_USERNAME={mask(SMTP_USERNAME)}, SENDER_EMAIL={mask(SENDER_EMAIL)}")
+
+    # Build body
+    subject = f"New contact form submission from {name}"
+    body = f"""
+You have a new contact form submission.
+
+Name: {name}
+Email: {email}
+Message:
+{message}
+
+Received at: {datetime.datetime.utcnow().isoformat()} UTC
+"""
+
+    # Always append to local fallback log first (so you have the alert)
+    try:
+        log_entry = {
+            "ts": datetime.datetime.utcnow().isoformat(),
+            "name": name,
+            "email": email,
+            "message": message
+        }
+        with open("contacts.log", "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+    except Exception as e:
+        logging.exception("Failed to write to contacts.log (non-fatal)")
+
+    # If SMTP details appear present, try sending email but be forgiving
+    if PERSONAL_EMAIL and SMTP_SERVER and SMTP_USERNAME and SMTP_PASSWORD:
+        try:
+            msg = EmailMessage()
+            msg["From"] = SENDER_EMAIL
+            msg["To"] = PERSONAL_EMAIL
+            msg["Subject"] = subject
+            msg.set_content(body)
+
+            # set_debuglevel(1) shows SMTP conversation in server logs — useful for debugging
+            with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=15) as smtp:
+                smtp.set_debuglevel(1)   # <-- set to 0 after debugging
+                smtp.ehlo()
+                if SMTP_PORT in (587, 25):
+                    smtp.starttls()
+                    smtp.ehlo()
+                # attempt login
+                smtp.login(SMTP_USERNAME, SMTP_PASSWORD)
+                smtp.send_message(msg)
+
+            logging.info("Contact email sent successfully.")
+            return JSONResponse({"status": "success", "detail": "Message sent (email)."})
+        except SMTPAuthenticationError:
+            logging.exception("SMTPAuthenticationError: auth failed (likely bad app password or mismatched username).")
+            return JSONResponse({"status": "success", "detail": "Received (email not sent due to SMTP auth). Logged on server."})
+        except SMTPException:
+            logging.exception("SMTPException while sending contact email.")
+            return JSONResponse({"status": "success", "detail": "Received (email could not be sent). Logged on server."})
+        except Exception:
+            logging.exception("Unexpected error while sending contact email.")
+            return JSONResponse({"status": "success", "detail": "Received (unexpected error). Logged on server."})
+
+    # SMTP not configured or missing → fallback success response (already logged to contacts.log)
+    logging.info("SMTP not configured; contact logged to contacts.log")
+    return JSONResponse({"status": "success", "detail": "Submission received and logged (SMTP not configured)."})
+
+#report emergency
+@app.post("/report-emergency/")
+async def report_emergency(
+    emergency_type: str = Form(...),
+    description: str = Form(...),
+    request: Request = None,
+):
+    """
+    Accept emergency reports from the frontend and email them to PERSONAL_EMAIL.
+    Returns JSON {status: 'success'| 'error', detail: ...}
+    """
+
+    PERSONAL_EMAIL = os.getenv("PERSONAL_EMAIL")
+    SMTP_SERVER = os.getenv("SMTP_SERVER")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
+    SMTP_USERNAME = os.getenv("SMTP_USERNAME")
+    SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+    SENDER_EMAIL = os.getenv("SENDER_EMAIL") or SMTP_USERNAME or "no-reply@example.com"
+
+    # Build a helpful subject and body
+    subject = f"🚨 Emergency Report: {emergency_type}"
+    now = datetime.datetime.utcnow().isoformat() + "Z"
+    client_ip = None
+    try:
+        client_ip = request.client.host if request and request.client else "unknown"
+    except Exception:
+        client_ip = "unknown"
+
+    body = f"""You have received an emergency report.
+
+Type: {emergency_type}
+Description:
+{description}
+
+Received at: {now} (UTC)
+From IP: {client_ip}
+"""
+
+    # Always append to local fallback log
+    try:
+        log_entry = {
+            "ts": now,
+            "type": emergency_type,
+            "description": description,
+            "ip": client_ip
+        }
+        with open("emergency_reports.log", "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(log_entry) + "\n")
+    except Exception:
+        logging.exception("Failed to write emergency log (non-fatal)")
+
+    # Try to send email
+    try:
+        msg = EmailMessage()
+        msg["Subject"] = subject
+        msg["From"] = SENDER_EMAIL
+        msg["To"] = PERSONAL_EMAIL
+        msg.set_content(body)
+
+        # Connect and send
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=15) as smtp:
+            smtp.ehlo()
+            if SMTP_PORT == 587:
+                smtp.starttls()
+                smtp.ehlo()
+            if SMTP_USERNAME and SMTP_PASSWORD:
+                smtp.login(SMTP_USERNAME, SMTP_PASSWORD)
+            smtp.send_message(msg)
+
+        return {"status": "success", "detail": "Report sent"}
+    except smtplib.SMTPAuthenticationError as e:
+        logging.exception("Failed to send emergency email (auth error)")
+        return JSONResponse(status_code=500, content={"status": "error", "detail": "SMTP authentication failed. Check SMTP_USERNAME and SMTP_PASSWORD (use App Password for Gmail)."})
+    except Exception as e:
+        logging.exception("Failed to send emergency email")
+        return JSONResponse(status_code=500, content={"status": "error", "detail": "Failed to send email. See server logs."})
+
+
 
 # Nearest Police Station 
 async def enhanced_nearest_police_search(lat: float, lon: float, radius: int = 10000):
