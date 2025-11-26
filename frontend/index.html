@@ -609,12 +609,16 @@
             </div>
             <div class="max-w-xl mx-auto space-y-6 text-secondary-foreground">
                 <p class="text-center"><i class="fas fa-envelope mr-2"></i> support@railinfo.com</p>
-                <form class="space-y-4 bg-background p-6 rounded-xl shadow-lg">
-                    <input type="text" data-translate-placeholder="name-placeholder" placeholder="Your Name" class="w-full bg-input border border-border rounded-lg p-3 text-foreground">
-                    <input type="email" data-translate-placeholder="email-placeholder" placeholder="Your Email" class="w-full bg-input border border-border rounded-lg p-3 text-foreground">
-                    <textarea data-translate-placeholder="message-placeholder" placeholder="Your Message" rows="4" class="w-full bg-input border border-border rounded-lg p-3 text-foreground"></textarea>
-                    <button type="submit" class="w-full btn-primary py-3 rounded-lg font-semibold" data-translate="send-message">Send Message</button>
-                </form>
+                <!-- CONTACT FORM (replace the existing form block) -->
+<form id="contactForm" class="space-y-4 bg-background p-6 rounded-xl shadow-lg" onsubmit="submitContact(event)">
+  <input id="contactName" name="name" type="text" data-translate-placeholder="name-placeholder" placeholder="Your Name" class="w-full bg-input border border-border rounded-lg p-3 text-foreground" required>
+  <input id="contactEmail" name="email" type="email" data-translate-placeholder="email-placeholder" placeholder="Your Email" class="w-full bg-input border border-border rounded-lg p-3 text-foreground" required>
+  <textarea id="contactMessage" name="message" data-translate-placeholder="message-placeholder" placeholder="Your Message" rows="4" class="w-full bg-input border border-border rounded-lg p-3 text-foreground" required></textarea>
+  <button id="contactSubmitBtn" type="submit" class="w-full btn-primary py-3 rounded-lg font-semibold" data-translate="send-message">Send Message</button>
+
+  <div id="contactResult" class="mt-3 text-sm hidden"></div>
+</form>
+
             </div>
         </div>
     </section>
@@ -784,28 +788,29 @@ function getCurrentLanguage() {
     return (languageSelect && languageSelect.value) || (mobileLanguageSelect && mobileLanguageSelect.value) || 'en';
 }
 
-function addChatMessage(sender, text) {
+// find your existing function addChatMessage and replace with this version
+function addChatMessage(sender, text, save = true) {
     if (!chatMessages) return;
 
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message-${sender} p-4 rounded-xl max-w-[80%] ${sender === 'user' ? 'ml-auto' : ''}`;
-    
+
     const contentDiv = document.createElement('div');
     contentDiv.className = 'flex items-start space-x-3';
-    
+
     const iconContainer = document.createElement('div');
     iconContainer.className = `w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${sender === 'user' ? 'bg-primary' : 'bg-secondary'}`;
-    
+
     const icon = document.createElement('i');
     icon.className = `fas ${sender === 'user' ? 'fa-user text-primary-foreground' : 'fa-robot text-secondary-foreground'} text-sm`;
-    
+
     const textContainer = document.createElement('div');
     textContainer.className = 'flex-1';
-    
+
     const paragraph = document.createElement('p');
     paragraph.className = 'text-sm whitespace-pre-wrap';
     paragraph.textContent = text;
-    
+
     // Add speaker button for bot messages
     if (sender === 'bot') {
         const speakerButton = document.createElement('button');
@@ -813,25 +818,33 @@ function addChatMessage(sender, text) {
         speakerButton.title = 'Listen to this message';
         speakerButton.innerHTML = '<i class="fas fa-volume-up"></i>';
         speakerButton.onclick = () => playBotTextAudio(text, getCurrentLanguage());
-        
+
         const textWrapper = document.createElement('div');
         textWrapper.className = 'flex items-center justify-between';
         textWrapper.appendChild(paragraph);
         textWrapper.appendChild(speakerButton);
-        
+
         textContainer.appendChild(textWrapper);
     } else {
         textContainer.appendChild(paragraph);
     }
-    
+
     iconContainer.appendChild(icon);
     contentDiv.appendChild(iconContainer);
     contentDiv.appendChild(textContainer);
     messageDiv.appendChild(contentDiv);
     chatMessages.appendChild(messageDiv);
-    
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Persist into session history (client-side)
+    if (save) {
+        // normalize sender: server expects roles "user" / "assistant"
+        const role = sender === 'bot' ? 'assistant' : 'user';
+        chatHistory.push({ role: role, text: text, ts: new Date().toISOString() });
+        localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(chatHistory));
+    }
 }
+
 
 function updateStatus(text, isRecording = false) {
     if (recordingStatusText) recordingStatusText.textContent = text;
@@ -957,6 +970,67 @@ async function startRecording() {
         if (stopRecordingBtn) stopRecordingBtn.classList.add('hidden');
     }
 }
+// CONTACT form submission
+async function submitContact(event) {
+  event.preventDefault();
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const message = document.getElementById('contactMessage').value.trim();
+  const resultEl = document.getElementById('contactResult');
+  const submitBtn = document.getElementById('contactSubmitBtn');
+
+  resultEl.classList.add('hidden');
+  resultEl.innerText = '';
+
+  if (!name || !email || !message) {
+    resultEl.classList.remove('hidden');
+    resultEl.classList.add('text-red-600');
+    resultEl.innerText = 'Please fill in all fields.';
+    return;
+  }
+
+  try {
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Sending...';
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('message', message);
+
+    // Make POST to backend endpoint /contact/
+    const resp = await fetch('/contact/', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await resp.json();
+
+    if (resp.ok && data.status === 'success') {
+      resultEl.classList.remove('hidden');
+      resultEl.classList.remove('text-red-600');
+      resultEl.classList.add('text-green-600');
+      resultEl.innerText = '✅ Message sent — thanks! I will contact you soon.';
+      document.getElementById('contactForm').reset();
+    } else {
+      resultEl.classList.remove('hidden');
+      resultEl.classList.remove('text-green-600');
+      resultEl.classList.add('text-red-600');
+      resultEl.innerText = data.detail || '❌ Failed to send message. Try again later.';
+      console.error('Contact send failed:', data);
+    }
+  } catch (err) {
+    resultEl.classList.remove('hidden');
+    resultEl.classList.remove('text-green-600');
+    resultEl.classList.add('text-red-600');
+    resultEl.innerText = '❌ Network error. Please try again later.';
+    console.error(err);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = 'Send Message';
+  }
+}
+
 
 async function processAudioQuery() {
     updateStatus('Processing audio query...', false);
@@ -977,6 +1051,7 @@ async function processAudioQuery() {
         formData.append('file', audioBlob, 'query.webm');
         formData.append('src_lang', currentLang);
         formData.append('target_lang', currentLang);
+        formData.append('history', JSON.stringify(chatHistory.slice(-18)));
 
         const response = await fetch(`${API_BASE_URL}/chatbot/`, {
             method: 'POST',
@@ -1041,40 +1116,53 @@ async function sendTextMessage() {
     if (!query) return;
 
     currentLang = getCurrentLanguage();
+
+    // Add user message
     addChatMessage('user', query);
     chatInput.value = '';
 
-    // Add thinking message
-    addChatMessage('bot', '...Thinking...');
-    
+    // Build form data (with history)
+    const formData = new FormData();
+    formData.append('query', query);
+    formData.append('src_lang', currentLang);
+    formData.append('target_lang', currentLang);
+
+    // Send only last N conversation turns
+    const historyToSend = JSON.stringify(chatHistory.slice(-18));
+    formData.append('history', historyToSend);
+
+    // Add thinking placeholder
+    addChatMessage('bot', '...Thinking...', false);
+
     try {
-        const formData = new FormData();
-        formData.append('query', query);
-        formData.append('src_lang', currentLang);
-        formData.append('target_lang', currentLang);
-        
         const res = await fetch(`${API_BASE_URL}/chatbot/`, {
             method: 'POST',
             body: formData
         });
 
         const data = await res.json();
-        
+
         // Remove thinking message
         const lastMessage = chatMessages.lastElementChild;
-        if (lastMessage && lastMessage.textContent === '...Thinking...') chatMessages.removeChild(lastMessage);
-        
+        if (lastMessage && lastMessage.textContent === '...Thinking...') {
+            chatMessages.removeChild(lastMessage);
+        }
+
         addChatMessage('bot', data.bot_response || 'Sorry, I could not process your request.');
 
     } catch (error) {
         console.error('Text chat error:', error);
+
         // Remove thinking message
         const lastMessage = chatMessages.lastElementChild;
-        if (lastMessage && lastMessage.textContent === '...Thinking...') chatMessages.removeChild(lastMessage);
-        
+        if (lastMessage && lastMessage.textContent === '...Thinking...') {
+            chatMessages.removeChild(lastMessage);
+        }
+
         addChatMessage('bot', '⚠️ Failed to connect to chatbot server. Please try again.');
     }
 }
+
 
 // --- UI/Modal Functions ---
 
@@ -1175,153 +1263,254 @@ async function playBotTextAudio(text, lang = 'en') {
     }
 }
 
+function escapeHtml(unsafe) {
+  if (unsafe === null || unsafe === undefined) return '';
+  return String(unsafe)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
 // --- Form Result Display ---
-// [NEW CORRECTED FUNCTION]
+// Replace the entire displayResult function with this robust version
 function displayResult(resultId, data, service) {
-    const resultElement = document.getElementById(resultId);
-    if (!resultElement) return;
+  const resultElement = document.getElementById(resultId);
+  if (!resultElement) return;
 
-    resultElement.classList.remove('hidden');
-    resultElement.classList.remove('bg-red-100', 'text-red-800', 'bg-secondary/30', 'text-secondary-foreground');
+  // make visible and reset classes
+  resultElement.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-secondary/30', 'text-secondary-foreground');
+
+  // Basic error handling: allow callers to pass { error: "..."} too
+  if (!data || data.error) {
+    const errMsg = (data && (data.error || data.message)) || 'Unknown error.';
+    resultElement.classList.add('bg-red-100', 'text-red-800');
+    resultElement.innerHTML = `<div class="font-bold">Error:</div><p>${escapeHtml(errMsg)}</p>`;
+    // clear globals so other code doesn't act on stale data
+    window.resultData = null;
+    window.payload = null;
+    return;
+  }
+
+  // The APIs you show use { status: true, data: ... } on success
+  if (typeof data.status !== 'undefined' && data.status !== true) {
+    // API responded but with a failure
+    const errMsg = data.message || data.error || 'API returned failure.';
+    resultElement.classList.add('bg-red-100', 'text-red-800');
+    resultElement.innerHTML = `<div class="font-bold">Error:</div><p>${escapeHtml(errMsg)}</p>`;
+    window.resultData = null;
+    window.payload = null;
+    return;
+  }
+
+  // Pull the raw payload from common places (data.data or data)
+  const raw = data.data !== undefined ? data.data : data;
+
+  // expose globals so older code that referenced resultData still works
+  window.resultData = raw; // keep previous semantics: resultData points to the main payload
+  window.payload = raw;
+
+  // Normalize payload variable (array or object)
+  let payload = null;
+  if (Array.isArray(raw)) {
+    payload = raw;
+  } else if (raw && typeof raw === 'object') {
+    // try common keys that APIs use
+    payload = raw.data || raw.Data || raw.availability || raw.AVAILABILITY || raw;
+  } else {
+    payload = raw;
+  }
+
+  // If payload is object with nested arrays, attempt to extract the inner array
+  if (payload && !Array.isArray(payload) && typeof payload === 'object') {
+    // these are common nested shapes: { data: [...] } or { Data: [...] } or { availability: [...] }
+    payload = payload.data || payload.Data || payload.availability || payload.AVAILABILITY || payload;
+  }
+
+  resultElement.classList.add('bg-secondary/30', 'text-secondary-foreground');
+
+  let htmlContent = '';
+
+  switch (service) {
+
+    case 'pnr': {
+      // Expect resultData to be object having Pnr, TrainName, PassengerStatus[], ...
+      const rd = window.resultData || {};
+      const pnr = rd.Pnr || rd.pnr || rd.PNR || rd.pnr_number || 'N/A';
+      const train = rd.TrainNo || rd.train_number || rd.TrainName || rd.train_name || 'N/A';
+      const passengers = rd.PassengerStatus || rd.passengers || rd.passenger_status || [];
+      const passHtml = Array.isArray(passengers) && passengers.length > 0
+        ? passengers.map((p, i) => `<li class="ml-4"><strong>Passenger ${i+1}:</strong> ${escapeHtml(p.CurrentStatus || p.current_status || p.currentStatus || 'N/A')} (Booking: ${escapeHtml(p.BookingStatus || p.booking_status || p.booking || 'N/A')})</li>`).join('')
+        : '<li class="ml-4">Information unavailable</li>';
+
+      htmlContent = `
+        <div class="space-y-2">
+          <h4 class="font-bold text-lg text-primary">PNR: ${escapeHtml(pnr)}</h4>
+          <p><strong>Train:</strong> ${escapeHtml(train)}</p>
+          <h5 class="font-semibold mt-2 text-muted-foreground">Passengers:</h5>
+          <ul class="list-disc list-inside text-sm">${passHtml}</ul>
+        </div>
+      `;
+      break;
+    }
+
+    case 'status': {
+      const rd = window.resultData || {};
+      const trainNo = rd.train_number || rd.TrainNo || rd.trainNo || 'N/A';
+      const name = rd.train_name || rd.TrainName || 'N/A';
+      const pos = rd.position || rd.current_position || rd.position_text || 'N/A';
+      const late = Number(rd.late_by_minutes || rd.late_by || 0);
+      htmlContent = `
+        <div class="space-y-2">
+          <h4 class="font-bold text-lg text-primary">Train Status: ${escapeHtml(trainNo)}</h4>
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Current Position:</strong> ${escapeHtml(pos)}</p>
+          <p><strong>Delay:</strong> <span class="${late > 0 ? 'text-red-400' : 'text-green-500'} font-bold">${escapeHtml(String(late))} minutes</span></p>
+        </div>
+      `;
+      break;
+    }
+
+    case 'schedule': {
+      const rd = window.resultData || {};
+      const route = rd.route || rd.stations || rd.data || [];
+      const routeHtml = Array.isArray(route) && route.length > 0
+        ? route.map(st => `<li class="flex justify-between border-b border-border py-1 text-sm"><span>${escapeHtml(st.station_name || st.name || 'N/A')} (${escapeHtml(st.station_code || st.code || '')})</span><span>Arr: ${escapeHtml(st.arrival_time || st.Arrival || '---')} / Dep: ${escapeHtml(st.departure_time || st.Departure || '---')}</span></li>`).join('')
+        : '<li class="text-sm">No schedule information available.</li>';
+
+      htmlContent = `
+        <div class="space-y-2">
+          <h4 class="font-bold text-lg text-primary">Schedule</h4>
+          <ul class="space-y-1">${routeHtml}</ul>
+        </div>
+      `;
+      break;
+    }
+
+    case 'seat': {
+      // Payload could be an array of availability objects, or object { data: [ ... ] } etc.
+      const seatPayload = Array.isArray(payload) ? payload : (payload && typeof payload === 'object' ? (payload.data || payload.availability || payload.AVAILABILITY || payload) : []);
+      const availabilityArray = Array.isArray(seatPayload) ? seatPayload : [];
+
+      if (!availabilityArray.length) {
+        htmlContent = '<div class="text-sm text-red-500 font-semibold">No availability data found.</div>';
+        break;
+      }
+
+      const availabilityHtml = availabilityArray.map(item => {
+        const date = item.date || item.Doj || item.Date || 'N/A';
+        const status = item.current_status || item.status || item.avail || item.currentStatus || 'UNKNOWN';
+        const prob = item.confirm_probability_percent || item.confirm_probability || item.confirmProbability || '';
+        const probText = prob ? ` (${escapeHtml(String(prob))}%)` : '';
+        const berths = item.number_of_berths || item.berths || item.count || '-';
+        return `<li class="flex justify-between border-b border-border py-1 text-sm"><span>${escapeHtml(date)}</span><span class="font-bold ${String(status).toUpperCase().includes('AVAIL') || String(status).toUpperCase().includes('AVAILABLE') ? 'text-green-500' : 'text-red-400'}">${escapeHtml(String(status))}${probText} - ${escapeHtml(String(berths))}</span></li>`;
+      }).join('');
+
+      htmlContent = `
+        <div class="space-y-2">
+          <h4 class="font-bold text-lg text-primary">Seat Availability Check</h4>
+          <h5 class="font-semibold mt-2 text-muted-foreground">Availability Status:</h5>
+          <ul class="space-y-1">${availabilityHtml}</ul>
+        </div>
+      `;
+      break;
+    }
+
+    case 'search': {
+      // tolerate many shapes: payload might be array, or payload.Data, or payload.data, or payload (object with Data)
+      let trainsArr = [];
+      if (Array.isArray(payload)) {
+        trainsArr = payload;
+      } else if (payload && typeof payload === 'object') {
+        trainsArr = payload.Data || payload.data || payload.trains || payload.Trains || payload.results || payload;
+        if (!Array.isArray(trainsArr) && trainsArr && typeof trainsArr === 'object') {
+          // sometimes it's { data: [...] } nested again
+          trainsArr = trainsArr.data || trainsArr.Data || [];
+        }
+      }
+
+      if (!Array.isArray(trainsArr) || trainsArr.length === 0) {
+        htmlContent = `<div class="text-sm text-red-500 font-semibold">No trains found for this route and date.</div>`;
+        break;
+      }
+
+      const trainsHtml = trainsArr.slice(0, 20).map(train => {
+        const number = train.TrainNo || train.train_number || train.trainNo || train.number || 'N/A';
+        const name = train.TrainName || train.train_name || train.name || 'Unnamed';
+        const srcCode = train.SourceStationCode || train.train_src || train.from_station || train.src || '';
+        const dstCode = train.DestinationStationCode || train.train_dstn || train.to_station || train.dst || '';
+        const depTime = train.DepartureTime || train.from_std || train.departure_time || '---';
+        const arrTime = train.ArrivalTime || train.to_std || train.arrival_time || '---';
+        const travelTime = train.TravelTime || train.travel_time || train.duration || 'N/A';
+        return `
+          <li class="border-b border-border py-2">
+            <h5 class="font-bold">${escapeHtml(String(number))} - ${escapeHtml(name)}</h5>
+            <p class="text-xs text-muted-foreground">Departs: ${escapeHtml(srcCode)} (${escapeHtml(depTime)}) | Arrives: ${escapeHtml(dstCode)} (${escapeHtml(arrTime)})</p>
+            <p class="text-xs text-muted-foreground">Travel Time: ${escapeHtml(travelTime)}</p>
+          </li>`;
+      }).join('');
+
+      htmlContent = `
+        <div class="space-y-2">
+          <h4 class="font-bold text-lg text-primary">Trains Found: ${trainsArr.length}</h4>
+          <ul class="divide-y divide-border">${trainsHtml}</ul>
+        </div>
+      `;
+      break;
+    }
+
+    case 'station': {
+      const stationsData = Array.isArray(payload) ? payload : (payload && (payload.data || payload.Data) ? (payload.data || payload.Data) : []);
+      let stationsHtml = '';
+      if (Array.isArray(stationsData) && stationsData.length > 0) {
+        stationsHtml = stationsData.map(st => `
+          <li class="border-b border-border py-3 flex justify-between items-center hover:bg-white/5 px-2 rounded transition-colors cursor-pointer" onclick="fillStationInputs('${escapeHtml(st.station_code || st.code || '')}')">
+            <div>
+              <h5 class="font-bold text-base">${escapeHtml(st.station_name || st.name || 'N/A')}</h5>
+              <p class="text-xs text-muted-foreground">Station Code</p>
+            </div>
+            <div class="bg-primary/20 text-primary px-3 py-1 rounded-full font-mono font-bold">${escapeHtml(st.station_code || st.code || '')}</div>
+          </li>`).join('');
+      } else {
+        stationsHtml = '<li class="text-sm p-2 text-muted-foreground">No stations found matching your query.</li>';
+      }
+
+      htmlContent = `
+        <div class="space-y-2">
+          <h4 class="font-bold text-lg text-primary">Found ${Array.isArray(stationsData) ? stationsData.length : 0} Stations:</h4>
+          <p class="text-xs text-muted-foreground mb-2">Click a code to copy it.</p>
+          <ul class="divide-y divide-border max-h-60 overflow-y-auto pr-1">${stationsHtml}</ul>
+        </div>
+      `;
+      break;
+    }
+
+    default:
+      // fallback - print entire payload
+      htmlContent = `<pre class="text-xs">${escapeHtml(JSON.stringify(payload, null, 2))}</pre>`;
+  } // switch
+
+  resultElement.innerHTML = htmlContent;
+}
+
+function fillStationInputs(code) {
+    // Tries to fill the search inputs if they exist and are empty
+    const fromInput = document.getElementById('fromInput');
+    const toInput = document.getElementById('toInput');
     
-    // --- FIX 1: Correct Error Check ---
-    // The API sends 'status: true' on success. We check for 'status !== true'.
-    if (data.status !== true) {
-        // The 'message' field contains the error text (e.g., "Success" in your faulty case, or a real error)
-        const errorMessage = data.message || data.error || 'An unknown error occurred.';
-        resultElement.classList.add('bg-red-100', 'text-red-800');
-        resultElement.innerHTML = `<div class="font-bold">Error:</div> <p>${errorMessage}</p>`;
-        return;
+    if (fromInput && fromInput.value === '') {
+        fromInput.value = code;
+        alert(`Selected ${code} as Source Station`);
+    } else if (toInput && toInput.value === '') {
+        toInput.value = code;
+        alert(`Selected ${code} as Destination Station`);
+    } else {
+        // Just copy to clipboard if fields are full or don't exist
+        navigator.clipboard.writeText(code);
+        alert(`Station Code ${code} copied to clipboard!`);
     }
-
-    // --- FIX 2: Correct Data Object Assignment ---
-    // The actual PNR/Train data is nested inside the 'data' key.
-    const resultData = data.data;
-    if (!resultData) {
-         resultElement.classList.add('bg-red-100', 'text-red-800');
-         resultElement.innerHTML = `<div class="font-bold">Error:</div> <p>API returned success but data was empty.</p>`;
-         return;
-    }
-
-    resultElement.classList.add('bg-secondary/30', 'text-secondary-foreground');
-    let htmlContent = '';
-    
-    switch (service) {
-        case 'pnr':
-            // --- FIX 3: Corrected PNR Object Keys ---
-            // Use 'PassengerStatus' instead of 'passengers', 'CurrentStatus' instead of 'current_status', etc.
-            const passengersHtml = resultData.PassengerStatus ? resultData.PassengerStatus.map(p => `
-                <li class="ml-4"><strong>Passenger ${p.Number}:</strong> ${p.CurrentStatus} (Booking: ${p.BookingStatus})</li>
-            `).join('') : '<li class="ml-4">Information unavailable</li>';
-
-            htmlContent = `
-                <div class="space-y-2">
-                    <h4 class="font-bold text-lg text-primary">PNR: ${resultData.Pnr}</h4>
-                    <p><strong>Train:</strong> ${resultData.TrainNo || 'N/A'} - ${resultData.TrainName || 'N/A'}</p>
-                    <p><strong>From:</strong> ${resultData.SourceName || 'N/A'} <strong>To:</strong> ${resultData.DestinationName || 'N/A'}</p>
-                    <p><strong>Date:</strong> ${resultData.Doj || 'N/A'}</p>
-                    <p><strong>Chart Prepared:</strong> ${resultData.ChartPrepared ? 'Yes' : 'No'}</p>
-                    <h5 class="font-semibold mt-2 text-muted-foreground">Passengers:</h5>
-                    <ul class="list-disc list-inside text-sm">${passengersHtml}</ul>
-                </div>
-            `;
-            break;
-            
-        case 'status':
-            htmlContent = `
-                <div class="space-y-2">
-                    <h4 class="font-bold text-lg text-primary">Train Status: ${resultData.train_number || resultData.TrainNo || 'N/A'}</h4>
-                    <p><strong>Name:</strong> ${resultData.train_name || resultData.TrainName || 'N/A'}</p>
-                    <p><strong>Current Position:</strong> ${resultData.position || 'N/A'}</p>
-                    <p><strong>Delay:</strong> <span class="font-bold ${resultData.late_by_minutes > 0 ? 'text-red-400' : 'text-green-500'}">${resultData.late_by_minutes || 0} minutes</span></p>
-                    <p><strong>Last Updated:</strong> ${resultData.last_updated || 'N/A'}</p>
-                </div>
-            `;
-            break;
-            
-        case 'schedule':
-            const routeHtml = resultData.route ? resultData.route.map(stn => `
-                <li class="flex justify-between border-b border-border py-1 text-sm">
-                    <span>${stn.station_name} (${stn.station_code})</span>
-                    <span>Arr: ${stn.arrival_time || '---'} / Dep: ${stn.departure_time || '---'}</span>
-                </li>
-            `).join('') : '<li class="text-sm">No schedule information available.</li>';
-            
-            htmlContent = `
-                <div class="space-y-2">
-                    <h4 class="font-bold text-lg text-primary">Schedule for Train ${resultData.train_number}</h4>
-                    <p><strong>Name:</strong> ${resultData.train_name || 'N/A'}</p>
-                    <h5 class="font-semibold mt-2 text-muted-foreground">Route:</h5>
-                    <ul class="space-y-1">${routeHtml}</ul>
-                </div>
-            `;
-            break;
-            
-        case 'seat':
-            const availabilityHtml = resultData.availability ? resultData.availability.map(item => `
-                <li class="flex justify-between border-b border-border py-1 text-sm">
-                    <span>${item.date} (${item.class_code})</span>
-                    <span class="font-bold ${item.status === 'AVAILABLE' ? 'text-green-500' : 'text-red-400'}">${item.status} - ${item.number_of_berths}</span>
-                </li>
-            `).join('') : '<li class="text-sm">No availability data found.</li>';
-            
-            htmlContent = `
-                <div class="space-y-2">
-                    <h4 class="font-bold text-lg text-primary">Seat Availability Check</h4>
-                    <p><strong>Quota:</strong> ${resultData.quota_code || 'N/A'} | <strong>Class:</strong> ${resultData.class_code || 'N/A'}</p>
-                    <h5 class="font-semibold mt-2 text-muted-foreground">Availability Status:</h5>
-                    <ul class="space-y-1">${availabilityHtml}</ul>
-                </div>
-            `;
-            break;
-            
-        case 'search':
-            const trainsList = resultData.Data; 
-
-            if (!trainsList || trainsList.length === 0) {
-                 htmlContent = `<div class="text-sm text-red-500 font-semibold">No trains found for this route and date.</div>`;
-                 break;
-            }
-
-            const trainsHtml = trainsList.slice(0, 5).map(train => `
-                <li class="border-b border-border py-2">
-                    <h5 class="font-bold">${train.TrainNo} - ${train.TrainName}</h5>
-                    <p class="text-xs text-muted-foreground">
-                        Departs: ${train.SourceStationCode} (${train.DepartureTime}) 
-                        | Arrives: ${train.DestinationStationCode} (${train.ArrivalTime})
-                    </p>
-                    <p class="text-xs text-muted-foreground">
-                        Travel Time: ${train.TravelTime}
-                    </p>
-                </li>
-            `).join('');
-            
-            htmlContent = `
-                <div class="space-y-2">
-                    <h4 class="font-bold text-lg text-primary">Trains Found: ${trainsList.length}</h4>
-                    <ul class="divide-y divide-border">${trainsHtml}</ul>
-                </div>
-            `;
-            break;
-            
-        case 'station':
-            const stationsHtml = resultData.data ? resultData.data.slice(0, 5).map(station => `
-                <li class="border-b border-border py-2">
-                    <h5 class="font-bold">${station.station_name}</h5>
-                    <p class="text-xs text-muted-foreground">Code: ${station.station_code}</p>
-                </li>
-            `).join('') : '<li class="text-sm">No stations found matching the query.</li>';
-
-            htmlContent = `
-                <div class="space-y-2">
-                    <h4 class="font-bold text-lg text-primary">Station Search Results:</h4>
-                    <ul class="divide-y divide-border">${stationsHtml}</ul>
-                </div>
-            `;
-            break;
-    }
-
-    resultElement.innerHTML = htmlContent;
 }
 
 function preventToggle(event) {
@@ -1739,7 +1928,7 @@ async function showEmergencyContacts() {
     }
 }
 
-function reportEmergency(event) {
+async function reportEmergency(event) {
     preventToggle(event);
     const type = document.getElementById("emergencyType").value;
     const description = document.getElementById("emergencyDescription").value;
@@ -1753,12 +1942,46 @@ function reportEmergency(event) {
         return;
     }
 
-    // Simulate sending report
-    console.log("Emergency Reported:", { type, description });
-    resultElement.classList.add('bg-green-100', 'text-green-800');
-    resultElement.innerHTML = `<div class="font-bold">✅ Report Sent!</div> <p>Emergency Type: ${type}. Authorities have been notified. For immediate assistance, please call 100 or 139.</p>`;
-    document.getElementById("emergencyForm").reset();
+    // Disable button while sending
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Reporting...';
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('emergency_type', type);
+        formData.append('description', description);
+
+        const resp = await fetch('/report-emergency/', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await resp.json().catch(() => ({}));
+
+        if (resp.ok && data.status === 'success') {
+            resultElement.classList.add('bg-green-100', 'text-green-800');
+            resultElement.innerHTML = `<div class="font-bold">✅ Report Sent!</div> <p>Emergency Type: ${type}. Authorities have been notified and the report has been sent.</p>`;
+            document.getElementById("emergencyForm").reset();
+        } else {
+            resultElement.classList.add('bg-red-100', 'text-red-800');
+            resultElement.innerHTML = `<div class="font-bold">❌ Error</div><p>${data.detail || 'Failed to send report. Try again later.'}</p>`;
+            console.error('Emergency report error', data);
+        }
+    } catch (err) {
+        console.error("Error sending emergency report:", err);
+        resultElement.classList.add('bg-red-100', 'text-red-800');
+        resultElement.innerHTML = `<div class="font-bold">❌ Network Error</div><p>Could not send the report. Check your connection.</p>`;
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-phone"></i> <span data-translate="report-emergency">Report Emergency</span>';
+        }
+    }
 }
+
 
 // --- Theme & Language Functions ---
 function applyTheme(isDark) {
