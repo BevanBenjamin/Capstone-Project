@@ -1,257 +1,202 @@
-🚄 Railway Info System – AI Powered Travel Assistant
+# 🚄 Railway Info System – AI Powered Travel Assistant
 
-A smart, conversational Indian Railway assistant built using FastAPI, Gemini AI, Speech-to-Text, Real-time APIs, and a fully responsive modern UI.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![Gemini AI](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=google&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-🌟 Overview
+A smart, conversational **Indian Railway assistant** built using **FastAPI**, **Gemini AI**, **Speech-to-Text**, and a fully responsive modern UI. This system delivers on-demand updates in text and speech, designed to work efficiently even in noisy environments.
 
-Railway Info System is an intelligent, voice-enabled chatbot designed to help users access live railway data with ease.
-It supports:
+---
+Visit the website :[Railway Info System](https://railinfo-stcb.onrender.com/ui)
 
-🎤 Voice & text chat
 
-🚆 Live Train Status
+---
 
-🪑 Seat Availability
+## 📑 Table of Contents
+- [🌟 Overview](#-overview)
+- [🎯 Key Features](#-key-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📂 Project Structure](#-project-structure)
+- [🚀 Getting Started](#-getting-started)
+- [🔌 API Endpoints](#-api-endpoints)
+- [📸 Screenshots](#-screenshots)
+- [🤝 Contributors](#-contributors)
+- [📬 Contact](#-contact)
 
-🎟️ Ticket Search
+---
 
-📍 Railway station information
+## 🌟 Overview
 
-⚠️ Emergency reporting
+The **Railway Info System** is an intelligent, voice-enabled chatbot designed to democratize access to live railway data. By bridging the gap between complex railway databases and everyday users, it offers a natural language interface for checking train status, seat availability, and emergency reporting.
 
-📩 Contact form with email notifications
+**Why this project?**
+- **Multilingual Support:** Breaks language barriers for diverse travelers.
+- **Voice-First Design:** Accessible for users who prefer speaking over typing.
+- **Real-Time Accuracy:** Fetches live data directly via APIs.
 
-🌐 Multilingual support
+---
 
-🤖 Smart AI replies via Google Gemini
+## 🎯 Key Features
 
-The goal is to make railway information quick, accessible, conversational, and accurate, with a clean UX suitable for real-world deployment.
+### 🤖 AI Chatbot (Voice & Text)
+- **Natural Conversations:** Powered by Google Gemini to understand context and intent.
+- **Speech-to-Text:** Speak your query comfortably.
+- **Text-to-Speech (TTS):** Hear the response, perfect for on-the-go usage.
 
-🎯 Features
-🤖 AI Chatbot (Text + Voice)
+### 🚉 Comprehensive Train Services
+- **🔍 Search Trains:** Find trains between any two stations.
+- **🪑 Seat Availability:** Check real-time seat counts for your preferred class.
+- **🚦 Live Status:** Track where your train is instantly.
+- **📅 PNR Status:** Quick lookup for ticket confirmation.
 
-Converts speech → text
+### 🛡️ Safety & Support
+- **⚠️ Emergency Reporting:** Instantly report issues; the system logs them and sends an **automated email alert** to administrators.
+- **📩 Contact Form:** Direct line of communication with email notifications and spam protection.
 
-Sends query to Gemini AI
+### 🌐 User Experience
+- **Multilingual:** Auto-detects and responds in English or Hindi.
+- **Modern UI:** Built with TailwindCSS for a smooth, mobile-responsive experience.
 
-Executes internal tools (train search, seat availability, live status)
+---
 
-Responds in natural language
+## 🛠️ Tech Stack
 
-🚉 Train Services
+| Component | Technologies Used |
+|-----------|-------------------|
+| **Frontend** | HTML5, JavaScript (ES6+), TailwindCSS, FontAwesome |
+| **Backend** | Python, FastAPI, Uvicorn |
+| **AI & NLP** | Google Gemini API, Google Speech-to-Text, LangDetect |
+| **Audio Processing** | Pydub, FFmpeg, Google TTS |
+| **Utilities** | Geopy, Dotenv, SMTP (Email) |
 
-🔍 Search Trains
+---
 
-🪑 Check Seat Availability
+## 📂 Project Structure
 
-🚦 Live Train Status
-
-📅 PNR Status Lookup
-
-🗺️ Station Information
-
-🛡️ Emergency Reporting
-
-Users can instantly report an emergency
-
-Your system sends a real email alert to admin using Gmail SMTP
-
-All reports logged to a server file for backup
-
-💬 Contact Form With Email Alerts
-
-Sends messages directly to your email
-
-Logs every submission
-
-Clean UI feedback
-
-Spam-safe fallback
-
-🔊 Voice Interaction
-
-Users can click microphone
-
-Speak their query
-
-Gemini processes it
-
-System replies via text + TTS (Text-to-Speech)
-
-🌐 Multilingual Interface
-
-English / Hindi toggle
-
-Auto language detection
-
-Gemini responds in the user’s language
-
-🎨 Beautiful Frontend UI
-
-Modern colors
-
-Smooth animations
-
-Floating chatbot
-
-Emergency panel
-
-Responsive & mobile-friendly
-
-🛠️ Tech Stack
-Frontend
-
-HTML5
-
-TailwindCSS
-
-JavaScript
-
-FontAwesome Icons
-
-Fetch API
-
-Responsive UI components
-
-Backend
-
-FastAPI (Python)
-
-Uvicorn
-
-Python Multipart
-
-Pydantic
-
-AI & Processing
-
-Google Gemini API
-
-Google Speech-to-Text
-
-Google Text-to-Speech
-
-Pydub
-
-FFmpeg
-
-Utilities
-
-Requests
-
-Dotenv
-
-LangDetect
-
-Geopy
-
-📂 Project Structure
+```bash
 Capstone-Project/
-│── main.py                # FastAPI backend + AI tool calling + endpoints
-│── index.html             # Railway assistant UI
-│── requirements.txt       # Project dependencies
-│── static/                # Assets
-│── emergency_reports.log  # Auto-generated emergency logs
-│── contacts.log           # Auto-generated contact submissions
-└── README.md              # ← You are here!
+│
+├── main.py                 # 🚀 Entry point: FastAPI backend & AI logic
+├── index.html              # 🎨 Main User Interface
+├── requirements.txt        # 📦 Python dependencies
+├── build.sh                # 🛠️ Build script (for deployment)
+├── runtime.txt             # ⚙️ Python runtime version
+│
+├── static/                 # 🖼️ Static assets (CSS, Images, JS)
+│
+├── data/                   # 💾 Data storage (if applicable)
+│
+├── emergency_reports.log   # 📝 Auto-generated log for emergencies
+└── contacts.log            # 📝 Auto-generated log for contact forms
+```
+---
 
-🔧 Core Endpoints
-🟦 /chatbot/
 
-Handles voice & text queries using Gemini function-calling.
 
-🟦 /seat-availability/
+## 🚀 **Getting Started**
 
-Returns real-time seat availability (via external API).
 
-🟦 /live-status/
 
-Retrieves live train running status.
+Follow these steps to set up the project locally.
 
-🟦 /contact/
 
-Sends user messages directly to admin email.
 
-🟦 /report-emergency/
+### 1️⃣ Clone the Repository
 
-Sends emergency details to email + logs them.
+```bash
 
-✨ Key Highlights
-⚡ Real-Time Railway Data
+git clone [https://github.com/BevanBenjamin/Capstone-Project.git](https://github.com/BevanBenjamin/Capstone-Project.git)
 
-Using external APIs + Gemini tools.
+cd Capstone-Project
+```
 
-🎙️ Full Voice Pipeline
 
-Speech → AI → Response → Optional TTS voice output.
 
-💼 Production-Ready Email Integration
+### 2️⃣ Install Dependencies
 
-Contact form + emergency reports sent to your inbox.
+Ensure you have Python installed. Then run:
 
-🔄 Clean & Structured Code
 
-Modular functions
 
-Tool-based AI execution
+```bash
 
-Clear logging
-
-Strong error handling
-
-📸 Screenshots (Optional – Add Later)
-
-You can add screenshots like:
-
-/screenshots/
-   home-page.png
-   chatbot.png
-   emergency-form.png
-   train-results.png
-
-🚀 How to Run Locally
-1️⃣ Install Dependencies
 pip install -r requirements.txt
+```
 
-2️⃣ Add .env File
-GOOGLE_API_KEY=your_api_key
-PERSONAL_EMAIL=your_email@gmail.com
-SMTP_USERNAME=your_email@gmail.com
-SMTP_PASSWORD=your_app_password
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
 
-3️⃣ Start Server
+
+##Note: You may need ffmpeg installed on your system for audio processing.
+
+
+
+### 3️⃣ Configure Environment Variables
+
+Create a .env file in the root directory and add your credentials:
+
+
+
+### 4️⃣ Run the Application
+
+Start the FastAPI server:
+
+
+
+```bash
+
 uvicorn main:app --reload
-
-4️⃣ Open Website
-
-➡️ Visit: http://localhost:8000/ui
+```
 
 
-🤝 Contributors
 
-👨‍💻 Krishna Kumar Jha
-B.Tech Student, Information Science & Technology
-Presidency University, Bangalore
-Developer – AI/ML, Web, Backend,
+### 5️⃣ Access the UI
 
-👨‍💻Bevan Benjamin
-B.Tech Student, Information Science & Technology
-Presidency University, Bangalore
-
-👨‍💻Harsh D Salian
-B.Tech Student, Information Science & Technology
-Presidency University, Bangalore
+Open your browser and navigate to: 👉 http://localhost:8000/ui
 
 
-⭐ Like this project? Give it a star!
 
-If this project helped or inspired you, consider giving it a ⭐ on GitHub — it motivates further improvements!
+## API Endpoints
 
-📬 Contact
+The backend exposes several key endpoints for the frontend to consume:
 
-Want to collaborate, improve features, or hire for dev work?
 
-📧 krishna7kumarjha@gmail.comurl)
-📱 Open for contributions / feature requests
+
+- **chatbot** – Handles logic for voice/text queries via Gemini.
+- **seat-availability** – Fetches live seat data.
+- **live-status** – Tracks real-time train location.
+- **contact** – Processes contact form submissions.
+- **report-emergency** – Critical endpoint for logging and emailing emergency reports.
+
+
+---
+
+## 📸 ScreenShots
+![Main Page](https://github.com/user-attachments/assets/3fb12811-9210-49e0-be3a-8b9728c25fe1
+)
+![Features](https://github.com/user-attachments/assets/c3430e13-6a25-408f-b802-68575a19749d
+)
+![ChatBot](https://github.com/user-attachments/assets/db0cf213-a132-4ccd-9b33-9c62f5d77941
+)
+---
+
+## 🤝 Contributors
+
+**Krishna Kumar Jha** - AI ML Developer , Web Developer
+
+**Bevan Benjamin** - Developer
+
+**Harsh D Salian** - Developer
+
+
+---
+
+ ## 📬Contact
+
+Have questions or want to contribute? Reach out!
+
+
+
+<p align="center"> <i>Made with ❤️ for better railway journeys.</i> </p>
+
+
