@@ -1,52 +1,257 @@
-# RailInfo 🚄
+🚄 Railway Info System – AI Powered Travel Assistant
 
-> An intelligent rail information system powered by speech recognition, text-to-speech, and NLP for extracting user intent.
+A smart, conversational Indian Railway assistant built using FastAPI, Gemini AI, Speech-to-Text, Real-time APIs, and a fully responsive modern UI.
 
-## Table of Contents
-- [About](#about)
-- [Features](#features)
-- [Tech-Stack](#tech-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Roadmap](#roadmap)
-- [License](#license)
+🌟 Overview
 
----
+Railway Info System is an intelligent, voice-enabled chatbot designed to help users access live railway data with ease.
+It supports:
 
-## About
-RailInfo is a smart application designed to provide **real-time train information** through natural interaction.  
-Users can speak queries in their language, and the system processes them to deliver relevant responses.  
+🎤 Voice & text chat
 
-This project is **currently under active development**, and new features are being added regularly.
+🚆 Live Train Status
 
----
+🪑 Seat Availability
 
-## Features
-- 🎤 **Speech-to-Text (STT):**  
-  Uses [OpenAI Whisper](https://github.com/openai/whisper) for accurate multilingual speech recognition.  
+🎟️ Ticket Search
 
-- 🧠 **Intent Extraction:**  
-  Hugging Face transformer models are used to understand user intent (e.g., checking schedules, delays, platforms).  
+📍 Railway station information
 
-- 🔊 **Text-to-Speech (TTS):**  
-  Responses are generated with [gTTS](https://pypi.org/project/gTTS/) for natural-sounding audio feedback.  
+⚠️ Emergency reporting
 
-- 🌍 **Multilingual Support:**  
-  Queries can be processed in different languages.  
+📩 Contact form with email notifications
 
-- 📊 **Future Features:**  
-  - Real-time train tracking  
-  - Integration with station maps  
-  - Mobile-friendly UI  
+🌐 Multilingual support
 
----
+🤖 Smart AI replies via Google Gemini
 
-## Tech-Stack
-- **Speech Recognition:** [OpenAI Whisper](https://github.com/openai/whisper)  
-- **Text-to-Speech:** [gTTS](https://pypi.org/project/gTTS/)  
-- **NLP & Intent Extraction:** Hugging Face Transformer Models  
-- **Backend:** Python (FastAPI / Flask)  
-- **Frontend:** HTML, CSS, JavaScript (planned)  
-- **Other Tools:** Git, GitHub for version control  
+The goal is to make railway information quick, accessible, conversational, and accurate, with a clean UX suitable for real-world deployment.
 
+🎯 Features
+🤖 AI Chatbot (Text + Voice)
+
+Converts speech → text
+
+Sends query to Gemini AI
+
+Executes internal tools (train search, seat availability, live status)
+
+Responds in natural language
+
+🚉 Train Services
+
+🔍 Search Trains
+
+🪑 Check Seat Availability
+
+🚦 Live Train Status
+
+📅 PNR Status Lookup
+
+🗺️ Station Information
+
+🛡️ Emergency Reporting
+
+Users can instantly report an emergency
+
+Your system sends a real email alert to admin using Gmail SMTP
+
+All reports logged to a server file for backup
+
+💬 Contact Form With Email Alerts
+
+Sends messages directly to your email
+
+Logs every submission
+
+Clean UI feedback
+
+Spam-safe fallback
+
+🔊 Voice Interaction
+
+Users can click microphone
+
+Speak their query
+
+Gemini processes it
+
+System replies via text + TTS (Text-to-Speech)
+
+🌐 Multilingual Interface
+
+English / Hindi toggle
+
+Auto language detection
+
+Gemini responds in the user’s language
+
+🎨 Beautiful Frontend UI
+
+Modern colors
+
+Smooth animations
+
+Floating chatbot
+
+Emergency panel
+
+Responsive & mobile-friendly
+
+🛠️ Tech Stack
+Frontend
+
+HTML5
+
+TailwindCSS
+
+JavaScript
+
+FontAwesome Icons
+
+Fetch API
+
+Responsive UI components
+
+Backend
+
+FastAPI (Python)
+
+Uvicorn
+
+Python Multipart
+
+Pydantic
+
+AI & Processing
+
+Google Gemini API
+
+Google Speech-to-Text
+
+Google Text-to-Speech
+
+Pydub
+
+FFmpeg
+
+Utilities
+
+Requests
+
+Dotenv
+
+LangDetect
+
+Geopy
+
+📂 Project Structure
+Capstone-Project/
+│── main.py                # FastAPI backend + AI tool calling + endpoints
+│── index.html             # Railway assistant UI
+│── requirements.txt       # Project dependencies
+│── static/                # Assets
+│── emergency_reports.log  # Auto-generated emergency logs
+│── contacts.log           # Auto-generated contact submissions
+└── README.md              # ← You are here!
+
+🔧 Core Endpoints
+🟦 /chatbot/
+
+Handles voice & text queries using Gemini function-calling.
+
+🟦 /seat-availability/
+
+Returns real-time seat availability (via external API).
+
+🟦 /live-status/
+
+Retrieves live train running status.
+
+🟦 /contact/
+
+Sends user messages directly to admin email.
+
+🟦 /report-emergency/
+
+Sends emergency details to email + logs them.
+
+✨ Key Highlights
+⚡ Real-Time Railway Data
+
+Using external APIs + Gemini tools.
+
+🎙️ Full Voice Pipeline
+
+Speech → AI → Response → Optional TTS voice output.
+
+💼 Production-Ready Email Integration
+
+Contact form + emergency reports sent to your inbox.
+
+🔄 Clean & Structured Code
+
+Modular functions
+
+Tool-based AI execution
+
+Clear logging
+
+Strong error handling
+
+📸 Screenshots (Optional – Add Later)
+
+You can add screenshots like:
+
+/screenshots/
+   home-page.png
+   chatbot.png
+   emergency-form.png
+   train-results.png
+
+🚀 How to Run Locally
+1️⃣ Install Dependencies
+pip install -r requirements.txt
+
+2️⃣ Add .env File
+GOOGLE_API_KEY=your_api_key
+PERSONAL_EMAIL=your_email@gmail.com
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+
+3️⃣ Start Server
+uvicorn main:app --reload
+
+4️⃣ Open Website
+
+➡️ Visit: http://localhost:8000/ui
+
+
+🤝 Contributors
+
+👨‍💻 Krishna Kumar Jha
+B.Tech Student, Information Science & Technology
+Presidency University, Bangalore
+Developer – AI/ML, Web, Backend,
+
+👨‍💻Bevan Benjamin
+B.Tech Student, Information Science & Technology
+Presidency University, Bangalore
+
+👨‍💻Harsh D Salian
+B.Tech Student, Information Science & Technology
+Presidency University, Bangalore
+
+
+⭐ Like this project? Give it a star!
+
+If this project helped or inspired you, consider giving it a ⭐ on GitHub — it motivates further improvements!
+
+📬 Contact
+
+Want to collaborate, improve features, or hire for dev work?
+
+📧 krishna7kumarjha@gmail.comurl)
+📱 Open for contributions / feature requests
