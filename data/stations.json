@@ -1,0 +1,4195 @@
+{
+  "ROAD": {
+    "name": "ABU",
+    "aliases": [
+      "abu",
+      "baghpat",
+      "bargarh",
+      "gyanpur",
+      "keonjhar",
+      "kodaikanal",
+      "nasik",
+      "road",
+      "samuktala",
+      "sawantwadi",
+      "sojat",
+      "srikakulam",
+      "tumsar",
+      "vasai"
+    ]
+  },
+  "AH": {
+    "name": "ACHHNERA",
+    "aliases": [
+      "achhnera",
+      "ah"
+    ]
+  },
+  "FORT": {
+    "name": "AGRA",
+    "aliases": [
+      "agra",
+      "fort"
+    ]
+  },
+  "AGC": {
+    "name": "AGRA CANTT.",
+    "aliases": [
+      "agc",
+      "agra cantt."
+    ]
+  },
+  "AII": {
+    "name": "AJMER",
+    "aliases": [
+      "aii",
+      "ajmer"
+    ]
+  },
+  "AK": {
+    "name": "AKOLA",
+    "aliases": [
+      "ak",
+      "akola"
+    ]
+  },
+  "ALD": {
+    "name": "ALLAHABAD",
+    "aliases": [
+      "ald",
+      "allahabad"
+    ]
+  },
+  "ALLP": {
+    "name": "ALAPPUZHA",
+    "aliases": [
+      "alappuzha",
+      "allp"
+    ]
+  },
+  "AWY": {
+    "name": "ALUVA",
+    "aliases": [
+      "aluva",
+      "awy"
+    ]
+  },
+  "AN": {
+    "name": "AMALNER",
+    "aliases": [
+      "amalner",
+      "an"
+    ]
+  },
+  "ASR": {
+    "name": "AMRITSAR",
+    "aliases": [
+      "amritsar",
+      "asr"
+    ]
+  },
+  "AKP": {
+    "name": "ANAKAPALLE",
+    "aliases": [
+      "akp",
+      "anakapalle"
+    ]
+  },
+  "ATP": {
+    "name": "ANANTAPUR",
+    "aliases": [
+      "anantapur",
+      "atp"
+    ]
+  },
+  "ANGL": {
+    "name": "ANGUL",
+    "aliases": [
+      "angl",
+      "angul"
+    ]
+  },
+  "ARA": {
+    "name": "ARA",
+    "aliases": [
+      "ara"
+    ]
+  },
+  "AJJ": {
+    "name": "ARAKKONAM",
+    "aliases": [
+      "ajj",
+      "arakkonam"
+    ]
+  },
+  "ARJ": {
+    "name": "AUNRIHAR",
+    "aliases": [
+      "arj",
+      "aunrihar"
+    ]
+  },
+  "AWB": {
+    "name": "AURANGABAD",
+    "aliases": [
+      "aurangabad",
+      "awb"
+    ]
+  },
+  "BPB": {
+    "name": "BADARPUR",
+    "aliases": [
+      "badarpur",
+      "bpb"
+    ]
+  },
+  "BGK": {
+    "name": "BAGALKOT",
+    "aliases": [
+      "bagalkot",
+      "bgk"
+    ]
+  },
+  "BLS": {
+    "name": "BALASORE",
+    "aliases": [
+      "balasore",
+      "bls"
+    ]
+  },
+  "BNQ": {
+    "name": "BANARHAT",
+    "aliases": [
+      "banarhat",
+      "bnq"
+    ]
+  },
+  "BANDRA": {
+    "name": "BNDA",
+    "aliases": [
+      "bandra",
+      "bnda"
+    ]
+  },
+  "BDTS": {
+    "name": "TERMINUS",
+    "aliases": [
+      "bdts",
+      "terminus"
+    ]
+  },
+  "SBC":{
+    "name": "BANGALORE",
+    "aliases": [
+      "bangalore",
+      "city",
+      "firozpur",
+      "gangapur",
+      "jalandhar",
+      "krishnanagar",
+      "meerut",
+      "sitapur",
+      "udaipur"
+    ]
+  },
+  "BQK": {
+    "name": "BANKURA",
+    "aliases": [
+      "bankura",
+      "bqk"
+    ]
+  },
+  "BNKI": {
+    "name": "BANMANKHI",
+    "aliases": [
+      "banmankhi",
+      "bnki"
+    ]
+  },
+  "BARAUT": {
+    "name": "BJU",
+    "aliases": [
+      "baraut",
+      "bju"
+    ]
+  },
+  "BE": {
+    "name": "BAREILLY",
+    "aliases": [
+      "bareilly",
+      "be"
+    ]
+  },
+  "BARMER": {
+    "name": "BRGA",
+    "aliases": [
+      "barmer",
+      "brga"
+    ]
+  },
+  "BAROG": {
+    "name": "BME",
+    "aliases": [
+      "barog",
+      "bme"
+    ]
+  },
+  "BASTI": {
+    "name": "BOF",
+    "aliases": [
+      "basti",
+      "bof"
+    ]
+  },
+  "BAP": {
+    "name": "BELAPUR",
+    "aliases": [
+      "bap",
+      "belapur"
+    ]
+  },
+  "BGM": {
+    "name": "BELGAUM",
+    "aliases": [
+      "belgaum",
+      "bgm"
+    ]
+  },
+  "BZU": {
+    "name": "BETUL",
+    "aliases": [
+      "betul",
+      "bzu"
+    ]
+  },
+  "BOY": {
+    "name": "BHADOHI",
+    "aliases": [
+      "bhadohi",
+      "boy"
+    ]
+  },
+  "BTE": {
+    "name": "BHARATPUR",
+    "aliases": [
+      "bharatpur",
+      "bte"
+    ]
+  },
+  "BH": {
+    "name": "BHARUCH",
+    "aliases": [
+      "bh",
+      "bharuch"
+    ]
+  },
+  "BTT": {
+    "name": "BHATNI",
+    "aliases": [
+      "bhatni",
+      "btt"
+    ]
+  },
+  "BVC": {
+    "name": "BHAVNAGAR (T)",
+    "aliases": [
+      "bhavnagar (t)",
+      "bvc"
+    ]
+  },
+  "TOWN": {
+    "name": "BHIMAVARAM",
+    "aliases": [
+      "bhimavaram",
+      "dibrugarh",
+      "ernakulam",
+      "goalpara",
+      "kurnool",
+      "malda",
+      "palakkad",
+      "shimoga",
+      "town"
+    ]
+  },
+  "BHIND": {
+    "name": "BVRT",
+    "aliases": [
+      "bhind",
+      "bvrt"
+    ]
+  },
+  "BHOPAL": {
+    "name": "BIX",
+    "aliases": [
+      "bhopal",
+      "bix"
+    ]
+  },
+  "BBS": {
+    "name": "BHUBANESWAR",
+    "aliases": [
+      "bbs",
+      "bhubaneswar"
+    ]
+  },
+  "BJP": {
+    "name": "BIJAPUR",
+    "aliases": [
+      "bijapur",
+      "bjp"
+    ]
+  },
+  "BJO": {
+    "name": "BIJNOR",
+    "aliases": [
+      "bijnor",
+      "bjo"
+    ]
+  },
+  "BINA": {
+    "name": "BINA",
+    "aliases": [
+      "bina"
+    ]
+  },
+  "BNV": {
+    "name": "BINNAGURI",
+    "aliases": [
+      "binnaguri",
+      "bnv"
+    ]
+  },
+  "VBL": {
+    "name": "BOBBILI",
+    "aliases": [
+      "bobbili",
+      "vbl"
+    ]
+  },
+  "STEEL": {
+    "name": "BOKARO",
+    "aliases": [
+      "bokaro",
+      "steel"
+    ]
+  },
+  "BKSC": {
+    "name": "CITY",
+    "aliases": [
+      "bksc",
+      "city"
+    ]
+  },
+  "BTD": {
+    "name": "BOTAD",
+    "aliases": [
+      "botad",
+      "btd"
+    ]
+  },
+  "BMP": {
+    "name": "BRAHMAPURI",
+    "aliases": [
+      "bmp",
+      "brahmapuri"
+    ]
+  },
+  "BUW": {
+    "name": "BURHWAL",
+    "aliases": [
+      "burhwal",
+      "buw"
+    ]
+  },
+  "BXR": {
+    "name": "BUXAR",
+    "aliases": [
+      "buxar",
+      "bxr"
+    ]
+  },
+  "BANK": {
+    "name": "CHAKKI",
+    "aliases": [
+      "bank",
+      "chakki"
+    ]
+  },
+  "CKP": {
+    "name": "CHAKRADHARPUR",
+    "aliases": [
+      "chakradharpur",
+      "ckp"
+    ]
+  },
+  "CPH": {
+    "name": "CHAMPA",
+    "aliases": [
+      "champa",
+      "cph"
+    ]
+  },
+  "CH": {
+    "name": "CHANDAUSI",
+    "aliases": [
+      "ch",
+      "chandausi"
+    ]
+  },
+  "CD": {
+    "name": "CHANDRAPUR",
+    "aliases": [
+      "cd",
+      "chandrapur"
+    ]
+  },
+  "CRP": {
+    "name": "CHANDRAPURA",
+    "aliases": [
+      "chandrapura",
+      "crp"
+    ]
+  },
+  "EGMORE": {
+    "name": "CHENNAI",
+    "aliases": [
+      "chennai",
+      "egmore"
+    ]
+  },
+  "CPR": {
+    "name": "CHHAPRA",
+    "aliases": [
+      "chhapra",
+      "cpr"
+    ]
+  },
+  "CHI": {
+    "name": "CHIPLUN",
+    "aliases": [
+      "chi",
+      "chiplun"
+    ]
+  },
+  "CLX": {
+    "name": "CHIRALA",
+    "aliases": [
+      "chirala",
+      "clx"
+    ]
+  },
+  "COR": {
+    "name": "CHITTAURGARH",
+    "aliases": [
+      "chittaurgarh",
+      "cor"
+    ]
+  },
+  "CTO": {
+    "name": "CHITTOOR",
+    "aliases": [
+      "chittoor",
+      "cto"
+    ]
+  },
+  "CUR": {
+    "name": "CHURU",
+    "aliases": [
+      "churu",
+      "cur"
+    ]
+  },
+  "HX": {
+    "name": "CUDDAPAH",
+    "aliases": [
+      "cuddapah",
+      "hx"
+    ]
+  },
+  "CTC": {
+    "name": "CUTTACK",
+    "aliases": [
+      "ctc",
+      "cuttack"
+    ]
+  },
+  "DHD": {
+    "name": "DAHOD",
+    "aliases": [
+      "dahod",
+      "dhd"
+    ]
+  },
+  "DLO": {
+    "name": "DALGAON",
+    "aliases": [
+      "dalgaon",
+      "dlo"
+    ]
+  },
+  "DNR": {
+    "name": "DANAPUR",
+    "aliases": [
+      "danapur",
+      "dnr"
+    ]
+  },
+  "DBG": {
+    "name": "DARBHANGA",
+    "aliases": [
+      "darbhanga",
+      "dbg"
+    ]
+  },
+  "DDN": {
+    "name": "DEHRADUN",
+    "aliases": [
+      "ddn",
+      "dehradun"
+    ]
+  },
+  "DOS": {
+    "name": "DEHRI-ON-SONE",
+    "aliases": [
+      "dehri-on-sone",
+      "dos"
+    ]
+  },
+  "DEC": {
+    "name": "DELHI CANTT.",
+    "aliases": [
+      "dec",
+      "delhi cantt."
+    ]
+  },
+  "SARAI": {
+    "name": "DELHI",
+    "aliases": [
+      "delhi",
+      "sarai"
+    ]
+  },
+  "DEE": {
+    "name": "ROHILLA",
+    "aliases": [
+      "dee",
+      "rohilla"
+    ]
+  },
+  "DVL": {
+    "name": "DEVLALI",
+    "aliases": [
+      "devlali",
+      "dvl"
+    ]
+  },
+  "DMN": {
+    "name": "DHAMANGAON",
+    "aliases": [
+      "dhamangaon",
+      "dmn"
+    ]
+  },
+  "DPJ": {
+    "name": "DHARMAPURI",
+    "aliases": [
+      "dharmapuri",
+      "dpj"
+    ]
+  },
+  "DMM": {
+    "name": "DHARMAVARAM",
+    "aliases": [
+      "dharmavaram",
+      "dmm"
+    ]
+  },
+  "DHO": {
+    "name": "DHAULPUR",
+    "aliases": [
+      "dhaulpur",
+      "dho"
+    ]
+  },
+  "DLJ": {
+    "name": "DHOLA",
+    "aliases": [
+      "dhola",
+      "dlj"
+    ]
+  },
+  "DUI": {
+    "name": "DHURI",
+    "aliases": [
+      "dhuri",
+      "dui"
+    ]
+  },
+  "DGG": {
+    "name": "DONGARGARH",
+    "aliases": [
+      "dgg",
+      "dongargarh"
+    ]
+  },
+  "DURG": {
+    "name": "DURG",
+    "aliases": [
+      "durg"
+    ]
+  },
+  "DGR": {
+    "name": "DURGAPUR",
+    "aliases": [
+      "dgr",
+      "durgapur"
+    ]
+  },
+  "FD": {
+    "name": "FAIZABAD",
+    "aliases": [
+      "faizabad",
+      "fd"
+    ]
+  },
+  "FDB": {
+    "name": "FARIDABAD",
+    "aliases": [
+      "faridabad",
+      "fdb"
+    ]
+  },
+  "FTP": {
+    "name": "FATEHPUR",
+    "aliases": [
+      "fatehpur",
+      "ftp"
+    ]
+  },
+  "FUT": {
+    "name": "FATUHA",
+    "aliases": [
+      "fatuha",
+      "fut"
+    ]
+  },
+  "FZR": {
+    "name": "FIROZPUR CANTT.",
+    "aliases": [
+      "firozpur cantt.",
+      "fzr"
+    ]
+  },
+  "GDG": {
+    "name": "GADAG",
+    "aliases": [
+      "gadag",
+      "gdg"
+    ]
+  },
+  "GJL": {
+    "name": "GAJRAULA",
+    "aliases": [
+      "gajraula",
+      "gjl"
+    ]
+  },
+  "GARWA": {
+    "name": "GGC",
+    "aliases": [
+      "garwa",
+      "ggc"
+    ]
+  },
+  "GHD": {
+    "name": "ROAD",
+    "aliases": [
+      "ghd",
+      "road"
+    ]
+  },
+  "GZB": {
+    "name": "GHAZIABAD",
+    "aliases": [
+      "ghaziabad",
+      "gzb"
+    ]
+  },
+  "GOMOH": {
+    "name": "GLPT",
+    "aliases": [
+      "glpt",
+      "gomoh"
+    ]
+  },
+  "GONDA": {
+    "name": "GMO",
+    "aliases": [
+      "gmo",
+      "gonda"
+    ]
+  },
+  "GKP": {
+    "name": "GORAKHPUR",
+    "aliases": [
+      "gkp",
+      "gorakhpur"
+    ]
+  },
+  "HAT": {
+    "name": "GOSSAINGAON",
+    "aliases": [
+      "gossaingaon",
+      "hat"
+    ]
+  },
+  "GR": {
+    "name": "GULBARGA",
+    "aliases": [
+      "gr",
+      "gulbarga"
+    ]
+  },
+  "GUNA": {
+    "name": "GUNA",
+    "aliases": [
+      "guna"
+    ]
+  },
+  "GUV": {
+    "name": "GURUVAYUR",
+    "aliases": [
+      "guruvayur",
+      "guv"
+    ]
+  },
+  "GHY": {
+    "name": "GUWAHATI",
+    "aliases": [
+      "ghy",
+      "guwahati"
+    ]
+  },
+  "HBJ": {
+    "name": "HABIBGANJ",
+    "aliases": [
+      "habibganj",
+      "hbj"
+    ]
+  },
+  "HJP": {
+    "name": "HAJIPUR",
+    "aliases": [
+      "hajipur",
+      "hjp"
+    ]
+  },
+  "HOJ": {
+    "name": "HAMILTONGANJ",
+    "aliases": [
+      "hamiltonganj",
+      "hoj"
+    ]
+  },
+  "HMH": {
+    "name": "HANUMANGARH",
+    "aliases": [
+      "hanumangarh",
+      "hmh"
+    ]
+  },
+  "HD": {
+    "name": "HARDA",
+    "aliases": [
+      "harda",
+      "hd"
+    ]
+  },
+  "HW": {
+    "name": "HARIDWAR",
+    "aliases": [
+      "haridwar",
+      "hw"
+    ]
+  },
+  "HSA": {
+    "name": "HASIMARA",
+    "aliases": [
+      "hasimara",
+      "hsa"
+    ]
+  },
+  "HTE": {
+    "name": "HATIA",
+    "aliases": [
+      "hatia",
+      "hte"
+    ]
+  },
+  "NAGAR": {
+    "name": "HIMMAT",
+    "aliases": [
+      "anand",
+      "himmat",
+      "muzaffar",
+      "nagar",
+      "sriganga",
+      "surendra"
+    ]
+  },
+  "HUP": {
+    "name": "HINDUPUR",
+    "aliases": [
+      "hindupur",
+      "hup"
+    ]
+  },
+  "HBD": {
+    "name": "HOSHANGABAD",
+    "aliases": [
+      "hbd",
+      "hoshangabad"
+    ]
+  },
+  "HPT": {
+    "name": "HOSPET",
+    "aliases": [
+      "hospet",
+      "hpt"
+    ]
+  },
+  "HWH": {
+    "name": "HOWRAH",
+    "aliases": [
+      "howrah",
+      "hwh"
+    ]
+  },
+  "UBL": {
+    "name": "HUBLI",
+    "aliases": [
+      "hubli",
+      "ubl"
+    ]
+  },
+  "IAA": {
+    "name": "INDARA",
+    "aliases": [
+      "iaa",
+      "indara"
+    ]
+  },
+  "INDB": {
+    "name": "INDORE",
+    "aliases": [
+      "indb",
+      "indore"
+    ]
+  },
+  "JBP": {
+    "name": "JABALPUR",
+    "aliases": [
+      "jabalpur",
+      "jbp"
+    ]
+  },
+  "JP": {
+    "name": "JAIPUR",
+    "aliases": [
+      "jaipur",
+      "jp"
+    ]
+  },
+  "JHL": {
+    "name": "JAKHAL",
+    "aliases": [
+      "jakhal",
+      "jhl"
+    ]
+  },
+  "JM": {
+    "name": "JALAMB",
+    "aliases": [
+      "jalamb",
+      "jm"
+    ]
+  },
+  "JL": {
+    "name": "JALGAON",
+    "aliases": [
+      "jalgaon",
+      "jl"
+    ]
+  },
+  "TAWI": {
+    "name": "JAMMU",
+    "aliases": [
+      "jammu",
+      "tawi"
+    ]
+  },
+  "JAM": {
+    "name": "JAMNAGAR",
+    "aliases": [
+      "jam",
+      "jamnagar"
+    ]
+  },
+  "JYG": {
+    "name": "JAYNAGAR",
+    "aliases": [
+      "jaynagar",
+      "jyg"
+    ]
+  },
+  "JHS": {
+    "name": "JHANSI",
+    "aliases": [
+      "jhansi",
+      "jhs"
+    ]
+  },
+  "JGM": {
+    "name": "JHARGRAM",
+    "aliases": [
+      "jgm",
+      "jhargram"
+    ]
+  },
+  "JU": {
+    "name": "JODHPUR",
+    "aliases": [
+      "jodhpur",
+      "ju"
+    ]
+  },
+  "JBN": {
+    "name": "JOGBANI",
+    "aliases": [
+      "jbn",
+      "jogbani"
+    ]
+  },
+  "KCG": {
+    "name": "KACHEGUDA",
+    "aliases": [
+      "kacheguda",
+      "kcg"
+    ]
+  },
+  "KLK": {
+    "name": "KALKA",
+    "aliases": [
+      "kalka",
+      "klk"
+    ]
+  },
+  "KLL": {
+    "name": "KALOL",
+    "aliases": [
+      "kalol",
+      "kll"
+    ]
+  },
+  "CJ": {
+    "name": "KANCHIPURAM",
+    "aliases": [
+      "cj",
+      "kanchipuram"
+    ]
+  },
+  "KQL": {
+    "name": "KANDHLA",
+    "aliases": [
+      "kandhla",
+      "kql"
+    ]
+  },
+  "CAN": {
+    "name": "KANNUR",
+    "aliases": [
+      "can",
+      "kannur"
+    ]
+  },
+  "CNB": {
+    "name": "KANPUR CENTRAL",
+    "aliases": [
+      "cnb",
+      "kanpur central"
+    ]
+  },
+  "KKDI": {
+    "name": "KARAIKKUDI JN.",
+    "aliases": [
+      "karaikkudi jn.",
+      "kkdi"
+    ]
+  },
+  "KUN": {
+    "name": "KARNAL",
+    "aliases": [
+      "karnal",
+      "kun"
+    ]
+  },
+  "KGQ": {
+    "name": "KASARGOD",
+    "aliases": [
+      "kasargod",
+      "kgq"
+    ]
+  },
+  "KSJ": {
+    "name": "KASGANJ",
+    "aliases": [
+      "kasganj",
+      "ksj"
+    ]
+  },
+  "KTE": {
+    "name": "KATNI",
+    "aliases": [
+      "katni",
+      "kte"
+    ]
+  },
+  "KPD": {
+    "name": "KATPADI",
+    "aliases": [
+      "katpadi",
+      "kpd"
+    ]
+  },
+  "KGG": {
+    "name": "KHAGARIA",
+    "aliases": [
+      "kgg",
+      "khagaria"
+    ]
+  },
+  "KLD": {
+    "name": "KHALILABAD",
+    "aliases": [
+      "khalilabad",
+      "kld"
+    ]
+  },
+  "KGP": {
+    "name": "KHARAGPUR",
+    "aliases": [
+      "kgp",
+      "kharagpur"
+    ]
+  },
+  "KEX": {
+    "name": "KHEKRA",
+    "aliases": [
+      "kex",
+      "khekra"
+    ]
+  },
+  "KSG": {
+    "name": "KISHANGARH",
+    "aliases": [
+      "kishangarh",
+      "ksg"
+    ]
+  },
+  "KIUL": {
+    "name": "KIUL",
+    "aliases": [
+      "kiul"
+    ]
+  },
+  "KPG": {
+    "name": "KOPERGAON",
+    "aliases": [
+      "kopergaon",
+      "kpg"
+    ]
+  },
+  "KRPU": {
+    "name": "KORAPUT",
+    "aliases": [
+      "koraput",
+      "krpu"
+    ]
+  },
+  "KTW": {
+    "name": "KOTDWARA",
+    "aliases": [
+      "kotdwara",
+      "ktw"
+    ]
+  },
+  "KAPURA": {
+    "name": "KOT",
+    "aliases": [
+      "kapura",
+      "kot"
+    ]
+  },
+  "KJM": {
+    "name": "KRISHNARAJAPURAM",
+    "aliases": [
+      "kjm",
+      "krishnarajapuram"
+    ]
+  },
+  "KWV": {
+    "name": "KURDUWADI",
+    "aliases": [
+      "kurduwadi",
+      "kwv"
+    ]
+  },
+  "LAKSAR": {
+    "name": "KRNT",
+    "aliases": [
+      "krnt",
+      "laksar"
+    ]
+  },
+  "LGH": {
+    "name": "LALGARH",
+    "aliases": [
+      "lalgarh",
+      "lgh"
+    ]
+  },
+  "LKU": {
+    "name": "LALKUAN JN.",
+    "aliases": [
+      "lalkuan jn.",
+      "lku"
+    ]
+  },
+  "LUR": {
+    "name": "LATUR",
+    "aliases": [
+      "latur",
+      "lur"
+    ]
+  },
+  "LTT": {
+    "name": "LOKMANYA TILAK (T)",
+    "aliases": [
+      "lokmanya tilak (t)",
+      "ltt"
+    ]
+  },
+  "LNL": {
+    "name": "LONAVLA",
+    "aliases": [
+      "lnl",
+      "lonavla"
+    ]
+  },
+  "LDH": {
+    "name": "LUDHIANA",
+    "aliases": [
+      "ldh",
+      "ludhiana"
+    ]
+  },
+  "MTM": {
+    "name": "MACHILIPATNAM",
+    "aliases": [
+      "machilipatnam",
+      "mtm"
+    ]
+  },
+  "MDT": {
+    "name": "MADARIHAT",
+    "aliases": [
+      "madarihat",
+      "mdt"
+    ]
+  },
+  "MBI": {
+    "name": "MADHUBANI",
+    "aliases": [
+      "madhubani",
+      "mbi"
+    ]
+  },
+  "MDP": {
+    "name": "MADHUPUR",
+    "aliases": [
+      "madhupur",
+      "mdp"
+    ]
+  },
+  "MSH": {
+    "name": "MAHESANA",
+    "aliases": [
+      "mahesana",
+      "msh"
+    ]
+  },
+  "MBA": {
+    "name": "MAHOBA",
+    "aliases": [
+      "mahoba",
+      "mba"
+    ]
+  },
+  "MNM": {
+    "name": "MANAMADURAI",
+    "aliases": [
+      "manamadurai",
+      "mnm"
+    ]
+  },
+  "MKP": {
+    "name": "MANIKPUR",
+    "aliases": [
+      "manikpur",
+      "mkp"
+    ]
+  },
+  "MUR": {
+    "name": "MANKAPUR",
+    "aliases": [
+      "mankapur",
+      "mur"
+    ]
+  },
+  "MXN": {
+    "name": "MARIANI",
+    "aliases": [
+      "mariani",
+      "mxn"
+    ]
+  },
+  "MHOW": {
+    "name": "MTC",
+    "aliases": [
+      "mhow",
+      "mtc"
+    ]
+  },
+  "MDN": {
+    "name": "MIDNAPORE",
+    "aliases": [
+      "mdn",
+      "midnapore"
+    ]
+  },
+  "MZP": {
+    "name": "MIRZAPUR",
+    "aliases": [
+      "mirzapur",
+      "mzp"
+    ]
+  },
+  "MKA": {
+    "name": "MOKAMA",
+    "aliases": [
+      "mka",
+      "mokama"
+    ]
+  },
+  "MUE": {
+    "name": "MUDKHED",
+    "aliases": [
+      "mudkhed",
+      "mue"
+    ]
+  },
+  "MGS": {
+    "name": "MUGHALSARAI",
+    "aliases": [
+      "mgs",
+      "mughalsarai"
+    ]
+  },
+  "MURI": {
+    "name": "MURI",
+    "aliases": [
+      "muri"
+    ]
+  },
+  "MZS": {
+    "name": "MURKEONGSELEK",
+    "aliases": [
+      "murkeongselek",
+      "mzs"
+    ]
+  },
+  "MFP": {
+    "name": "MUZAFFARPUR",
+    "aliases": [
+      "mfp",
+      "muzaffarpur"
+    ]
+  },
+  "MYS": {
+    "name": "MYSORE",
+    "aliases": [
+      "mys",
+      "mysore"
+    ]
+  },
+  "NSL": {
+    "name": "NAGARSOL",
+    "aliases": [
+      "nagarsol",
+      "nsl"
+    ]
+  },
+  "NAB": {
+    "name": "NAGBHIR",
+    "aliases": [
+      "nab",
+      "nagbhir"
+    ]
+  },
+  "NCR": {
+    "name": "NAGORE",
+    "aliases": [
+      "nagore",
+      "ncr"
+    ]
+  },
+  "NGP": {
+    "name": "NAGPUR",
+    "aliases": [
+      "nagpur",
+      "ngp"
+    ]
+  },
+  "SANGLI": {
+    "name": "AMTA",
+    "aliases": [
+      "amta",
+      "sangli"
+    ]
+  },
+  "SATNA": {
+    "name": "SLI",
+    "aliases": [
+      "satna",
+      "sli"
+    ]
+  },
+  "SAP": {
+    "name": "SATTENAPALLE",
+    "aliases": [
+      "sap",
+      "sattenapalle"
+    ]
+  },
+  "SDAH": {
+    "name": "SEALDAH",
+    "aliases": [
+      "sdah",
+      "sealdah"
+    ]
+  },
+  "SC": {
+    "name": "SECUNDERABAD",
+    "aliases": [
+      "sc",
+      "secunderabad"
+    ]
+  },
+  "SDB": {
+    "name": "SHAHABAD",
+    "aliases": [
+      "sdb",
+      "shahabad"
+    ]
+  },
+  "SHG": {
+    "name": "SHAHGANJ",
+    "aliases": [
+      "shahganj",
+      "shg"
+    ]
+  },
+  "SKTN": {
+    "name": "SHAKTINAGAR",
+    "aliases": [
+      "shaktinagar",
+      "sktn"
+    ]
+  },
+  "SHM": {
+    "name": "SHALIMAR",
+    "aliases": [
+      "shalimar",
+      "shm"
+    ]
+  },
+  "SKB": {
+    "name": "SHIKOHABAD",
+    "aliases": [
+      "shikohabad",
+      "skb"
+    ]
+  },
+  "SML": {
+    "name": "SHIMLA",
+    "aliases": [
+      "shimla",
+      "sml"
+    ]
+  },
+  "SRR": {
+    "name": "SHORANUR JN.",
+    "aliases": [
+      "shoranur jn.",
+      "srr"
+    ]
+  },
+  "SMBJ": {
+    "name": "SHRI MAHABIRJI",
+    "aliases": [
+      "shri mahabirji",
+      "smbj"
+    ]
+  },
+  "SCL": {
+    "name": "SILCHAR",
+    "aliases": [
+      "scl",
+      "silchar"
+    ]
+  },
+  "SGUJ": {
+    "name": "SILIGURI",
+    "aliases": [
+      "sguj",
+      "siliguri"
+    ]
+  },
+  "SKZR": {
+    "name": "SIRPUR KAGAZNAGAR",
+    "aliases": [
+      "sirpur kagaznagar",
+      "skzr"
+    ]
+  },
+  "SSA": {
+    "name": "SIRSA",
+    "aliases": [
+      "sirsa",
+      "ssa"
+    ]
+  },
+  "SCC": {
+    "name": "SITAPUR CANTT.",
+    "aliases": [
+      "scc",
+      "sitapur cantt."
+    ]
+  },
+  "SOLAN": {
+    "name": "SOD",
+    "aliases": [
+      "sod",
+      "solan"
+    ]
+  },
+  "SLN": {
+    "name": "SULTANPUR",
+    "aliases": [
+      "sln",
+      "sultanpur"
+    ]
+  },
+  "ST": {
+    "name": "SURAT",
+    "aliases": [
+      "st",
+      "surat"
+    ]
+  },
+  "NLD": {
+    "name": "NALANDA",
+    "aliases": [
+      "nalanda",
+      "nld"
+    ]
+  },
+  "NLDA": {
+    "name": "NALGONDA",
+    "aliases": [
+      "nalgonda",
+      "nlda"
+    ]
+  },
+  "NGN": {
+    "name": "NANDGAON",
+    "aliases": [
+      "nandgaon",
+      "ngn"
+    ]
+  },
+  "NDB": {
+    "name": "NANDURBAR",
+    "aliases": [
+      "nandurbar",
+      "ndb"
+    ]
+  },
+  "NKE": {
+    "name": "NARKATIAGANJ",
+    "aliases": [
+      "narkatiaganj",
+      "nke"
+    ]
+  },
+  "NS": {
+    "name": "NARASAPUR",
+    "aliases": [
+      "narasapur",
+      "ns"
+    ]
+  },
+  "NUH": {
+    "name": "NAUGARH",
+    "aliases": [
+      "naugarh",
+      "nuh"
+    ]
+  },
+  "NLR": {
+    "name": "NELLORE",
+    "aliases": [
+      "nellore",
+      "nlr"
+    ]
+  },
+  "NCB": {
+    "name": "NEW COOCHBEHAR",
+    "aliases": [
+      "ncb",
+      "new coochbehar"
+    ]
+  },
+  "DELHI": {
+    "name": "NEW",
+    "aliases": [
+      "blor",
+      "blrd",
+      "delhi",
+      "new"
+    ]
+  },
+  "NEWMAL": {
+    "name": "NDLS",
+    "aliases": [
+      "ndls",
+      "newmal"
+    ]
+  },
+  "NEW": {
+    "name": "NMZ",
+    "aliases": [
+      "aam",
+      "cwa",
+      "daa",
+      "new",
+      "nmz",
+      "otr"
+    ]
+  },
+  "NTSK": {
+    "name": "TINSUKIA",
+    "aliases": [
+      "ntsk",
+      "tinsukia"
+    ]
+  },
+  "NMH": {
+    "name": "NIMACH",
+    "aliases": [
+      "nimach",
+      "nmh"
+    ]
+  },
+  "NZB": {
+    "name": "NIZAMABAD",
+    "aliases": [
+      "nizamabad",
+      "nzb"
+    ]
+  },
+  "OKHA": {
+    "name": "OKHA",
+    "aliases": [
+      "okha"
+    ]
+  },
+  "OGL": {
+    "name": "ONGOLE",
+    "aliases": [
+      "ogl",
+      "ongole"
+    ]
+  },
+  "PLNI": {
+    "name": "PALANI",
+    "aliases": [
+      "palani",
+      "plni"
+    ]
+  },
+  "PNU": {
+    "name": "PALANPUR",
+    "aliases": [
+      "palanpur",
+      "pnu"
+    ]
+  },
+  "PLK": {
+    "name": "PALIAKALAN",
+    "aliases": [
+      "paliakalan",
+      "plk"
+    ]
+  },
+  "PNVL": {
+    "name": "PANVEL",
+    "aliases": [
+      "panvel",
+      "pnvl"
+    ]
+  },
+  "PBN": {
+    "name": "PARBHANI",
+    "aliases": [
+      "parbhani",
+      "pbn"
+    ]
+  },
+  "PNBE": {
+    "name": "PATNA",
+    "aliases": [
+      "patna",
+      "pnbe"
+    ]
+  },
+  "SAHIB": {
+    "name": "PATNA",
+    "aliases": [
+      "patna",
+      "sahib"
+    ]
+  },
+  "PBE": {
+    "name": "PILIBHIT",
+    "aliases": [
+      "pbe",
+      "pilibhit"
+    ]
+  },
+  "PPI": {
+    "name": "PIPARIYA",
+    "aliases": [
+      "pipariya",
+      "ppi"
+    ]
+  },
+  "PBH": {
+    "name": "PRATAPGARH",
+    "aliases": [
+      "pbh",
+      "pratapgarh"
+    ]
+  },
+  "PDY": {
+    "name": "PUDUCHERRY",
+    "aliases": [
+      "pdy",
+      "puducherry"
+    ]
+  },
+  "PP": {
+    "name": "PURANPUR",
+    "aliases": [
+      "pp",
+      "puranpur"
+    ]
+  },
+  "PRNA": {
+    "name": "PURNIA",
+    "aliases": [
+      "prna",
+      "purnia"
+    ]
+  },
+  "PRR": {
+    "name": "PURULIA",
+    "aliases": [
+      "prr",
+      "purulia"
+    ]
+  },
+  "RC": {
+    "name": "RAICHUR",
+    "aliases": [
+      "raichur",
+      "rc"
+    ]
+  },
+  "RIG": {
+    "name": "RAIGARH",
+    "aliases": [
+      "raigarh",
+      "rig"
+    ]
+  },
+  "RJK": {
+    "name": "RAJA-KA-SAHASPUR",
+    "aliases": [
+      "raja-ka-sahaspur",
+      "rjk"
+    ]
+  },
+  "RKM": {
+    "name": "RAJA-KI-MANDI",
+    "aliases": [
+      "raja-ki-mandi",
+      "rkm"
+    ]
+  },
+  "RJT": {
+    "name": "RAJKOT",
+    "aliases": [
+      "rajkot",
+      "rjt"
+    ]
+  },
+  "RJN": {
+    "name": "RAJNANDGAON",
+    "aliases": [
+      "rajnandgaon",
+      "rjn"
+    ]
+  },
+  "RMD": {
+    "name": "RAMANATHAPURAM",
+    "aliases": [
+      "ramanathapuram",
+      "rmd"
+    ]
+  },
+  "RMM": {
+    "name": "RAMESWARAM",
+    "aliases": [
+      "rameswaram",
+      "rmm"
+    ]
+  },
+  "RPH": {
+    "name": "RAMPURHAT",
+    "aliases": [
+      "rampurhat",
+      "rph"
+    ]
+  },
+  "RHA": {
+    "name": "RANAGHAT",
+    "aliases": [
+      "ranaghat",
+      "rha"
+    ]
+  },
+  "RNY": {
+    "name": "RANGIYA",
+    "aliases": [
+      "rangiya",
+      "rny"
+    ]
+  },
+  "ROJ": {
+    "name": "RANINAGAR",
+    "aliases": [
+      "raninagar",
+      "roj"
+    ]
+  },
+  "RN": {
+    "name": "RATNAGIRI",
+    "aliases": [
+      "ratnagiri",
+      "rn"
+    ]
+  },
+  "RJ": {
+    "name": "RAWATGANJ",
+    "aliases": [
+      "rawatganj",
+      "rj"
+    ]
+  },
+  "RU": {
+    "name": "RENIGUNTA",
+    "aliases": [
+      "renigunta",
+      "ru"
+    ]
+  },
+  "REWA": {
+    "name": "REWA",
+    "aliases": [
+      "rewa"
+    ]
+  },
+  "ROK": {
+    "name": "ROHTAK",
+    "aliases": [
+      "rohtak",
+      "rok"
+    ]
+  },
+  "RK": {
+    "name": "ROORKEE",
+    "aliases": [
+      "rk",
+      "roorkee"
+    ]
+  },
+  "SRF": {
+    "name": "SAGAR JAMBAGARU",
+    "aliases": [
+      "sagar jambagaru",
+      "srf"
+    ]
+  },
+  "SGL": {
+    "name": "SAGAULI",
+    "aliases": [
+      "sagauli",
+      "sgl"
+    ]
+  },
+  "SBG": {
+    "name": "SAHIBGANJ",
+    "aliases": [
+      "sahibganj",
+      "sbg"
+    ]
+  },
+  "SA": {
+    "name": "SALEM",
+    "aliases": [
+      "sa",
+      "salem"
+    ]
+  },
+  "SLO": {
+    "name": "SAMALKOT",
+    "aliases": [
+      "samalkot",
+      "slo"
+    ]
+  },
+  "SPJ": {
+    "name": "SAMASTIPUR",
+    "aliases": [
+      "samastipur",
+      "spj"
+    ]
+  },
+  "TDD": {
+    "name": "TADEPALLIGUDEM",
+    "aliases": [
+      "tadepalligudem",
+      "tdd"
+    ]
+  },
+  "TLHR": {
+    "name": "TALCHER",
+    "aliases": [
+      "talcher",
+      "tlhr"
+    ]
+  },
+  "TLY": {
+    "name": "THALASSERY",
+    "aliases": [
+      "thalassery",
+      "tly"
+    ]
+  },
+  "TEL": {
+    "name": "TENALI",
+    "aliases": [
+      "tel",
+      "tenali"
+    ]
+  },
+  "TVR": {
+    "name": "THIRUVARUR.",
+    "aliases": [
+      "thiruvarur.",
+      "tvr"
+    ]
+  },
+  "TPTY": {
+    "name": "TIRUPATI",
+    "aliases": [
+      "tirupati",
+      "tpty"
+    ]
+  },
+  "TIR": {
+    "name": "TIRUR",
+    "aliases": [
+      "tir",
+      "tirur"
+    ]
+  },
+  "TVC": {
+    "name": "THIRUVANANTHAPURAM",
+    "aliases": [
+      "thiruvananthapuram",
+      "tvc"
+    ]
+  },
+  "TN": {
+    "name": "TUTICORIN",
+    "aliases": [
+      "tn",
+      "tuticorin"
+    ]
+  },
+  "UDUPI": {
+    "name": "UDZ",
+    "aliases": [
+      "udupi",
+      "udz"
+    ]
+  },
+  "UJN": {
+    "name": "UJJAIN",
+    "aliases": [
+      "ujjain",
+      "ujn"
+    ]
+  },
+  "ON": {
+    "name": "UNNAO",
+    "aliases": [
+      "on",
+      "unnao"
+    ]
+  },
+  "BDJ": {
+    "name": "VADAKARA",
+    "aliases": [
+      "bdj",
+      "vadakara"
+    ]
+  },
+  "BSB": {
+    "name": "VARANASI",
+    "aliases": [
+      "bsb",
+      "varanasi"
+    ]
+  },
+  "VSG": {
+    "name": "VASCO-DA-GAMA",
+    "aliases": [
+      "vasco-da-gama",
+      "vsg"
+    ]
+  },
+  "VRL": {
+    "name": "VERAVAL",
+    "aliases": [
+      "veraval",
+      "vrl"
+    ]
+  },
+  "VG": {
+    "name": "VIRAMGAM",
+    "aliases": [
+      "vg",
+      "viramgam"
+    ]
+  },
+  "VZM": {
+    "name": "VIZIANAGARAM",
+    "aliases": [
+      "vizianagaram",
+      "vzm"
+    ]
+  },
+  "WL": {
+    "name": "WARANGAL",
+    "aliases": [
+      "warangal",
+      "wl"
+    ]
+  },
+  "ADRA": {
+    "name": "ZZZ",
+    "aliases": [
+      "adra",
+      "zzz"
+    ]
+  },
+  "BWT": {
+    "name": "BANGARAPET",
+    "aliases": [
+      "bangarapet",
+      "bwt"
+    ]
+  },
+  "ADI": {
+    "name": "AHMEDABAD",
+    "aliases": [
+      "adi",
+      "ahmedabad"
+    ]
+  },
+  "ALWAR": {
+    "name": "BWN",
+    "aliases": [
+      "alwar",
+      "bwn"
+    ]
+  },
+  "BRKA": {
+    "name": "BARKAKANA",
+    "aliases": [
+      "barkakana",
+      "brka"
+    ]
+  },
+  "AMLA": {
+    "name": "AMLA",
+    "aliases": [
+      "amla"
+    ]
+  },
+  "BRWD": {
+    "name": "BARWADIH",
+    "aliases": [
+      "barwadih",
+      "brwd"
+    ]
+  },
+  "BEAS": {
+    "name": "ANDN",
+    "aliases": [
+      "andn",
+      "beas"
+    ]
+  },
+  "APR": {
+    "name": "ANUPPUR",
+    "aliases": [
+      "anuppur",
+      "apr"
+    ]
+  },
+  "BTH": {
+    "name": "BETTIAH",
+    "aliases": [
+      "bettiah",
+      "bth"
+    ]
+  },
+  "ASN": {
+    "name": "ASANSOL",
+    "aliases": [
+      "asansol",
+      "asn"
+    ]
+  },
+  "BGP": {
+    "name": "BHAGALPUR",
+    "aliases": [
+      "bgp",
+      "bhagalpur"
+    ]
+  },
+  "AMH": {
+    "name": "AZAMGARH",
+    "aliases": [
+      "amh",
+      "azamgarh"
+    ]
+  },
+  "BTJL": {
+    "name": "BHATKAL",
+    "aliases": [
+      "bhatkal",
+      "btjl"
+    ]
+  },
+  "BUG": {
+    "name": "BAGAHA",
+    "aliases": [
+      "bagaha",
+      "bug"
+    ]
+  },
+  "BKP": {
+    "name": "BAKTHIYARPUR",
+    "aliases": [
+      "bakthiyarpur",
+      "bkp"
+    ]
+  },
+  "BPR": {
+    "name": "BHOJIPURA",
+    "aliases": [
+      "bhojipura",
+      "bpr"
+    ]
+  },
+  "BUI": {
+    "name": "BALLIA",
+    "aliases": [
+      "ballia",
+      "bui"
+    ]
+  },
+  "BSL": {
+    "name": "BHUSAVAL",
+    "aliases": [
+      "bhusaval",
+      "bsl"
+    ]
+  },
+  "LOWER": {
+    "name": "BSP",
+    "aliases": [
+      "bsp",
+      "lower"
+    ]
+  },
+  "LFG": {
+    "name": "HALFLONG",
+    "aliases": [
+      "halflong",
+      "lfg"
+    ]
+  },
+  "BTTR": {
+    "name": "BITRAGUNTA",
+    "aliases": [
+      "bitragunta",
+      "bttr"
+    ]
+  },
+  "LUNI": {
+    "name": "LUNI",
+    "aliases": [
+      "luni"
+    ]
+  },
+  "BVI": {
+    "name": "BORIVALI",
+    "aliases": [
+      "borivali",
+      "bvi"
+    ]
+  },
+  "MAO": {
+    "name": "MADGAON (GOA)",
+    "aliases": [
+      "madgaon (goa)",
+      "mao"
+    ]
+  },
+  "BAU": {
+    "name": "BURHANPUR",
+    "aliases": [
+      "bau",
+      "burhanpur"
+    ]
+  },
+  "MBNR": {
+    "name": "MAHBUBNAGAR",
+    "aliases": [
+      "mahbubnagar",
+      "mbnr"
+    ]
+  },
+  "CAA": {
+    "name": "CHAKIA",
+    "aliases": [
+      "caa",
+      "chakia"
+    ]
+  },
+  "MKC": {
+    "name": "MAKSI",
+    "aliases": [
+      "maksi",
+      "mkc"
+    ]
+  },
+  "CLD": {
+    "name": "CHALSA",
+    "aliases": [
+      "chalsa",
+      "cld"
+    ]
+  },
+  "MAQ": {
+    "name": "MANGALORE",
+    "aliases": [
+      "mangalore",
+      "maq"
+    ]
+  },
+  "CNI": {
+    "name": "CHANDIL",
+    "aliases": [
+      "chandil",
+      "cni"
+    ]
+  },
+  "MNE": {
+    "name": "MANSI",
+    "aliases": [
+      "mansi",
+      "mne"
+    ]
+  },
+  "SAHU": {
+    "name": "CHATRAPATI",
+    "aliases": [
+      "chatrapati",
+      "sahu"
+    ]
+  },
+  "MAU": {
+    "name": "CSMT",
+    "aliases": [
+      "csmt",
+      "mau"
+    ]
+  },
+  "DHASA": {
+    "name": "MAU",
+    "aliases": [
+      "dhasa",
+      "mau"
+    ]
+  },
+  "MTP": {
+    "name": "METTUPALAIYAM",
+    "aliases": [
+      "mettupalaiyam",
+      "mtp"
+    ]
+  },
+  "DHG": {
+    "name": "DHRANGADHRA",
+    "aliases": [
+      "dhg",
+      "dhrangadhra"
+    ]
+  },
+  "MRGA": {
+    "name": "MIRYALAGUDA",
+    "aliases": [
+      "miryalaguda",
+      "mrga"
+    ]
+  },
+  "DMV": {
+    "name": "DIMAPUR",
+    "aliases": [
+      "dimapur",
+      "dmv"
+    ]
+  },
+  "MKI": {
+    "name": "MOTIHARI",
+    "aliases": [
+      "mki",
+      "motihari"
+    ]
+  },
+  "DNRP": {
+    "name": "DUNGARPUR",
+    "aliases": [
+      "dnrp",
+      "dungarpur"
+    ]
+  },
+  "CST": {
+    "name": "MUMBAI",
+    "aliases": [
+      "cst",
+      "mumbai"
+    ]
+  },
+  "ELURU": {
+    "name": "CSTM",
+    "aliases": [
+      "cstm",
+      "eluru"
+    ]
+  },
+  "ETAWAH": {
+    "name": "MOZ",
+    "aliases": [
+      "etawah",
+      "moz"
+    ]
+  },
+  "NDKD": {
+    "name": "NADIKUDE",
+    "aliases": [
+      "nadikude",
+      "ndkd"
+    ]
+  },
+  "CHAND": {
+    "name": "FATHEABAD",
+    "aliases": [
+      "chand",
+      "fatheabad"
+    ]
+  },
+  "FZD": {
+    "name": "FIROZABAD",
+    "aliases": [
+      "firozabad",
+      "fzd"
+    ]
+  },
+  "SBP": {
+    "name": "SAMBALPUR",
+    "aliases": [
+      "sambalpur",
+      "sbp"
+    ]
+  },
+  "FKG": {
+    "name": "FURKATING",
+    "aliases": [
+      "fkg",
+      "furkating"
+    ]
+  },
+  "STR": {
+    "name": "SATARA",
+    "aliases": [
+      "satara",
+      "str"
+    ]
+  },
+  "GADJ": {
+    "name": "GANDHINAGAR",
+    "aliases": [
+      "gadj",
+      "gandhinagar"
+    ]
+  },
+  "GTS": {
+    "name": "GHATSILA",
+    "aliases": [
+      "ghatsila",
+      "gts"
+    ]
+  },
+  "SEGM": {
+    "name": "SEWAGRAM",
+    "aliases": [
+      "segm",
+      "sewagram"
+    ]
+  },
+  "GK": {
+    "name": "GOLA GOKARANNATH",
+    "aliases": [
+      "gk",
+      "gola gokarannath"
+    ]
+  },
+  "SPP": {
+    "name": "SHAHPUR PATOREE",
+    "aliases": [
+      "shahpur patoree",
+      "spp"
+    ]
+  },
+  "GY": {
+    "name": "GOOTY",
+    "aliases": [
+      "gooty",
+      "gy"
+    ]
+  },
+  "SMQL": {
+    "name": "SHAMLI",
+    "aliases": [
+      "shamli",
+      "smql"
+    ]
+  },
+  "GDR": {
+    "name": "GUDUR",
+    "aliases": [
+      "gdr",
+      "gudur"
+    ]
+  },
+  "SVPI": {
+    "name": "SHIVPURI",
+    "aliases": [
+      "shivpuri",
+      "svpi"
+    ]
+  },
+  "GNT": {
+    "name": "GUNTUR",
+    "aliases": [
+      "gnt",
+      "guntur"
+    ]
+  },
+  "SIKR": {
+    "name": "SIKAR",
+    "aliases": [
+      "sikar",
+      "sikr"
+    ]
+  },
+  "SGRL": {
+    "name": "SINGRAULI",
+    "aliases": [
+      "sgrl",
+      "singrauli"
+    ]
+  },
+  "HDB": {
+    "name": "HALDIBARI",
+    "aliases": [
+      "haldibari",
+      "hdb"
+    ]
+  },
+  "SMI": {
+    "name": "SITAMARHI",
+    "aliases": [
+      "sitamarhi",
+      "smi"
+    ]
+  },
+  "HPU": {
+    "name": "HAPUR",
+    "aliases": [
+      "hapur",
+      "hpu"
+    ]
+  },
+  "SV": {
+    "name": "SIWAN",
+    "aliases": [
+      "siwan",
+      "sv"
+    ]
+  },
+  "HPP": {
+    "name": "HARPALPUR",
+    "aliases": [
+      "harpalpur",
+      "hpp"
+    ]
+  },
+  "SEE": {
+    "name": "SONPUR",
+    "aliases": [
+      "see",
+      "sonpur"
+    ]
+  },
+  "SSPN": {
+    "name": "PRASHANTI NILAYAM",
+    "aliases": [
+      "prashanti nilayam",
+      "sspn"
+    ]
+  },
+  "BZA": {
+    "name": "VIJAYAWADA",
+    "aliases": [
+      "bza",
+      "vijayawada"
+    ]
+  },
+  "NBD": {
+    "name": "NAJIBABAD",
+    "aliases": [
+      "najibabad",
+      "nbd"
+    ]
+  },
+  "VSKP": {
+    "name": "VISAKHAPATNAM",
+    "aliases": [
+      "visakhapatnam",
+      "vskp"
+    ]
+  },
+  "NED": {
+    "name": "NANDED",
+    "aliases": [
+      "nanded",
+      "ned"
+    ]
+  },
+  "WKR": {
+    "name": "WANKANER",
+    "aliases": [
+      "wankaner",
+      "wkr"
+    ]
+  },
+  "DAM": {
+    "name": "NANGAL",
+    "aliases": [
+      "dam",
+      "nangal"
+    ]
+  },
+  "ZBD": {
+    "name": "ZAFARABAD",
+    "aliases": [
+      "zafarabad",
+      "zbd"
+    ]
+  },
+  "NBQ": {
+    "name": "BONGAIGAON",
+    "aliases": [
+      "bongaigaon",
+      "nbq"
+    ]
+  },
+  "NJP": {
+    "name": "NEW JALPAIGURI",
+    "aliases": [
+      "new jalpaiguri",
+      "njp"
+    ]
+  },
+  "NDO": {
+    "name": "NIDUBROLU",
+    "aliases": [
+      "ndo",
+      "nidubrolu"
+    ]
+  },
+  "NORTH": {
+    "name": "ABLE",
+    "aliases": [
+      "able",
+      "north",
+      "rangapara"
+    ]
+  },
+  "NLP": {
+    "name": "LAKHIMPUR",
+    "aliases": [
+      "lakhimpur",
+      "nlp"
+    ]
+  },
+  "PC": {
+    "name": "PACHORA",
+    "aliases": [
+      "pachora",
+      "pc"
+    ]
+  },
+  "PGT": {
+    "name": "PALAKKAD",
+    "aliases": [
+      "palakkad",
+      "pgt"
+    ]
+  },
+  "PNME": {
+    "name": "PARASNATH",
+    "aliases": [
+      "parasnath",
+      "pnme"
+    ]
+  },
+  "PTA": {
+    "name": "PATIALA",
+    "aliases": [
+      "patiala",
+      "pta"
+    ]
+  },
+  "FL": {
+    "name": "PHULERA",
+    "aliases": [
+      "fl",
+      "phulera"
+    ]
+  },
+  "PBR": {
+    "name": "PORBANDAR",
+    "aliases": [
+      "pbr",
+      "porbandar"
+    ]
+  },
+  "PLO": {
+    "name": "PULGAON",
+    "aliases": [
+      "plo",
+      "pulgaon"
+    ]
+  },
+  "PURNA": {
+    "name": "AGTL",
+    "aliases": [
+      "agtl",
+      "purna"
+    ]
+  },
+  "RAE": {
+    "name": "AHH",
+    "aliases": [
+      "ahh",
+      "rae"
+    ]
+  },
+  "RBL": {
+    "name": "BARELI",
+    "aliases": [
+      "bareli",
+      "rbl"
+    ]
+  },
+  "RJY": {
+    "name": "RAJAHMUNDRY",
+    "aliases": [
+      "rajahmundry",
+      "rjy"
+    ]
+  },
+  "RGD": {
+    "name": "RAJGIR",
+    "aliases": [
+      "rajgir",
+      "rgd"
+    ]
+  },
+  "RDM": {
+    "name": "RAMAGUNDAM",
+    "aliases": [
+      "ramagundam",
+      "rdm"
+    ]
+  },
+  "RAMPUR": {
+    "name": "AJP",
+    "aliases": [
+      "ajp",
+      "rampur"
+    ]
+  },
+  "RMU": {
+    "name": "JN.",
+    "aliases": [
+      "jn.",
+      "rmu"
+    ]
+  },
+  "RATLAM": {
+    "name": "AKR",
+    "aliases": [
+      "akr",
+      "ratlam"
+    ]
+  },
+  "RGDA": {
+    "name": "RAYAGADA",
+    "aliases": [
+      "rayagada",
+      "rgda"
+    ]
+  },
+  "RGS": {
+    "name": "RINGUS",
+    "aliases": [
+      "rgs",
+      "ringus"
+    ]
+  },
+  "SDLP": {
+    "name": "SADULPUR",
+    "aliases": [
+      "sadulpur",
+      "sdlp"
+    ]
+  },
+  "SHC": {
+    "name": "SAHARSA",
+    "aliases": [
+      "saharsa",
+      "shc"
+    ]
+  },
+  "SIOB": {
+    "name": "SAMAKHIYALI",
+    "aliases": [
+      "samakhiyali",
+      "siob"
+    ]
+  },
+  "TATA": {
+    "name": "TATANAGAR",
+    "aliases": [
+      "tata",
+      "tatanagar"
+    ]
+  },
+  "TEZPUR": {
+    "name": "AMQ",
+    "aliases": [
+      "amq",
+      "tezpur"
+    ]
+  },
+  "TCR": {
+    "name": "THRISUR",
+    "aliases": [
+      "tcr",
+      "thrisur"
+    ]
+  },
+  "TUNI": {
+    "name": "ANH",
+    "aliases": [
+      "anh",
+      "tuni"
+    ]
+  },
+  "UDHNA": {
+    "name": "ANMD",
+    "aliases": [
+      "anmd",
+      "udhna"
+    ]
+  },
+  "UCR": {
+    "name": "UNCHAHAR",
+    "aliases": [
+      "ucr",
+      "unchahar"
+    ]
+  },
+  "BL": {
+    "name": "VALSAD",
+    "aliases": [
+      "bl",
+      "valsad"
+    ]
+  },
+  "ADONI": {
+    "name": "YLM",
+    "aliases": [
+      "adoni",
+      "ylm"
+    ]
+  },
+  "ANG": {
+    "name": "AHMADNAGAR",
+    "aliases": [
+      "ahmadnagar",
+      "ang"
+    ]
+  },
+  "ALJN": {
+    "name": "ALIGARH",
+    "aliases": [
+      "aligarh",
+      "aljn"
+    ]
+  },
+  "AMBALA": {
+    "name": "BDU",
+    "aliases": [
+      "ambala",
+      "bdu"
+    ]
+  },
+  "UMB": {
+    "name": "CANTT.",
+    "aliases": [
+      "cantt.",
+      "umb"
+    ]
+  },
+  "ANAND": {
+    "name": "BDWD",
+    "aliases": [
+      "anand",
+      "bdwd"
+    ]
+  },
+  "ANV": {
+    "name": "ANNAVARAM",
+    "aliases": [
+      "annavaram",
+      "anv"
+    ]
+  },
+  "ASK": {
+    "name": "ARSIKERE",
+    "aliases": [
+      "arsikere",
+      "ask"
+    ]
+  },
+  "AY": {
+    "name": "AYODHYA",
+    "aliases": [
+      "ay",
+      "ayodhya"
+    ]
+  },
+  "BDME": {
+    "name": "BAIDYANATHDHAM",
+    "aliases": [
+      "baidyanathdham",
+      "bdme"
+    ]
+  },
+  "BPQ": {
+    "name": "BALHARSHAH",
+    "aliases": [
+      "balharshah",
+      "bpq"
+    ]
+  },
+  "BANDEL": {
+    "name": "BGAE",
+    "aliases": [
+      "bandel",
+      "bgae"
+    ]
+  },
+  "BNC": {
+    "name": "BANGALORE CANTT.",
+    "aliases": [
+      "bangalore cantt.",
+      "bnc"
+    ]
+  },
+  "BPP": {
+    "name": "BAPATLA",
+    "aliases": [
+      "bapatla",
+      "bpp"
+    ]
+  },
+  "BBL": {
+    "name": "BARABIL",
+    "aliases": [
+      "barabil",
+      "bbl"
+    ]
+  },
+  "BARHNI": {
+    "name": "BGVN",
+    "aliases": [
+      "barhni",
+      "bgvn"
+    ]
+  },
+  "BARSOI": {
+    "name": "BGZ",
+    "aliases": [
+      "barsoi",
+      "bgz"
+    ]
+  },
+  "BAYANA": {
+    "name": "BHI",
+    "aliases": [
+      "bayana",
+      "bhi"
+    ]
+  },
+  "BHC": {
+    "name": "BHADRAKH",
+    "aliases": [
+      "bhadrakh",
+      "bhc"
+    ]
+  },
+  "BYT": {
+    "name": "BHATAPARA",
+    "aliases": [
+      "bhatapara",
+      "byt"
+    ]
+  },
+  "BHL": {
+    "name": "BHILWARA",
+    "aliases": [
+      "bhilwara",
+      "bhl"
+    ]
+  },
+  "BNW": {
+    "name": "BHIWANI",
+    "aliases": [
+      "bhiwani",
+      "bnw"
+    ]
+  },
+  "BHUJ": {
+    "name": "BID",
+    "aliases": [
+      "bhuj",
+      "bid"
+    ]
+  },
+  "BKN": {
+    "name": "BIKANER",
+    "aliases": [
+      "bikaner",
+      "bkn"
+    ]
+  },
+  "BIRUR": {
+    "name": "BIM",
+    "aliases": [
+      "bim",
+      "birur"
+    ]
+  },
+  "BHP": {
+    "name": "BOLPURSHANTINIKETAN",
+    "aliases": [
+      "bhp",
+      "bolpurshantiniketan"
+    ]
+  },
+  "BUDAUN": {
+    "name": "BISH",
+    "aliases": [
+      "bish",
+      "budaun"
+    ]
+  },
+  "CNO": {
+    "name": "CANACONA",
+    "aliases": [
+      "canacona",
+      "cno"
+    ]
+  },
+  "CSN": {
+    "name": "CHALISGAON",
+    "aliases": [
+      "chalisgaon",
+      "csn"
+    ]
+  },
+  "CDG": {
+    "name": "CHANDIGARH",
+    "aliases": [
+      "cdg",
+      "chandigarh"
+    ]
+  },
+  "CPK": {
+    "name": "CHAPARMUKH",
+    "aliases": [
+      "chaparmukh",
+      "cpk"
+    ]
+  },
+  "CNGR": {
+    "name": "CHENGANNUR",
+    "aliases": [
+      "chengannur",
+      "cngr"
+    ]
+  },
+  "CDM": {
+    "name": "CHIDAMBARAM",
+    "aliases": [
+      "cdm",
+      "chidambaram"
+    ]
+  },
+  "KARVI": {
+    "name": "CHITRAKOOTDHAM",
+    "aliases": [
+      "chitrakootdham",
+      "karvi"
+    ]
+  },
+  "CHOPAN": {
+    "name": "BKRO",
+    "aliases": [
+      "bkro",
+      "chopan"
+    ]
+  },
+  "ONR": {
+    "name": "COONOOR",
+    "aliases": [
+      "coonoor",
+      "onr"
+    ]
+  },
+  "DADAR": {
+    "name": "BLG",
+    "aliases": [
+      "blg",
+      "dadar"
+    ]
+  },
+  "DTO": {
+    "name": "DALTONGANJ",
+    "aliases": [
+      "daltonganj",
+      "dto"
+    ]
+  },
+  "DAUND": {
+    "name": "BLMR",
+    "aliases": [
+      "blmr",
+      "daund"
+    ]
+  },
+  "DSA": {
+    "name": "SHAHDARA",
+    "aliases": [
+      "dsa",
+      "shahdara"
+    ]
+  },
+  "DHN": {
+    "name": "DHANBAD",
+    "aliases": [
+      "dhanbad",
+      "dhn"
+    ]
+  },
+  "DWR": {
+    "name": "DHARWAD",
+    "aliases": [
+      "dharwad",
+      "dwr"
+    ]
+  },
+  "DHONE": {
+    "name": "BLZ",
+    "aliases": [
+      "blz",
+      "dhone"
+    ]
+  },
+  "DLN": {
+    "name": "DILDARNAGAR",
+    "aliases": [
+      "dildarnagar",
+      "dln"
+    ]
+  },
+  "DKJ": {
+    "name": "DORNAKAL",
+    "aliases": [
+      "dkj",
+      "dornakal"
+    ]
+  },
+  "DWARKA": {
+    "name": "BMKJ",
+    "aliases": [
+      "bmkj",
+      "dwarka"
+    ]
+  },
+  "ERODE": {
+    "name": "BMPL",
+    "aliases": [
+      "bmpl",
+      "erode"
+    ]
+  },
+  "FKD": {
+    "name": "FARRUKHABAD",
+    "aliases": [
+      "farrukhabad",
+      "fkd"
+    ]
+  },
+  "FKA": {
+    "name": "FAZILKA",
+    "aliases": [
+      "fazilka",
+      "fka"
+    ]
+  },
+  "FBG": {
+    "name": "FORBESGANJ",
+    "aliases": [
+      "fbg",
+      "forbesganj"
+    ]
+  },
+  "GIM": {
+    "name": "GANDHIDHAM",
+    "aliases": [
+      "gandhidham",
+      "gim"
+    ]
+  },
+  "GAYA": {
+    "name": "BNLW",
+    "aliases": [
+      "bnlw",
+      "gaya"
+    ]
+  },
+  "GODHRA": {
+    "name": "BNP",
+    "aliases": [
+      "bnp",
+      "godhra"
+    ]
+  },
+  "GONDIA": {
+    "name": "BNSA",
+    "aliases": [
+      "bnsa",
+      "gondia"
+    ]
+  },
+  "GDV": {
+    "name": "GUDIVADA",
+    "aliases": [
+      "gdv",
+      "gudivada"
+    ]
+  },
+  "GTL": {
+    "name": "GUNTAKAL",
+    "aliases": [
+      "gtl",
+      "guntakal"
+    ]
+  },
+  "GWL": {
+    "name": "GWALIOR",
+    "aliases": [
+      "gwalior",
+      "gwl"
+    ]
+  },
+  "HALDIA": {
+    "name": "BONA",
+    "aliases": [
+      "bona",
+      "haldia"
+    ]
+  },
+  "HAPA": {
+    "name": "BOV",
+    "aliases": [
+      "bov",
+      "hapa"
+    ]
+  },
+  "HRR": {
+    "name": "HARIHAR",
+    "aliases": [
+      "harihar",
+      "hrr"
+    ]
+  },
+  "HAZRAT": {
+    "name": "BPH",
+    "aliases": [
+      "bph",
+      "hazrat"
+    ]
+  },
+  "NZM": {
+    "name": "NIZAMUDDIN",
+    "aliases": [
+      "nizamuddin",
+      "nzm"
+    ]
+  },
+  "HNL": {
+    "name": "HINGOLI",
+    "aliases": [
+      "hingoli",
+      "hnl"
+    ]
+  },
+  "HOSUR": {
+    "name": "BPY",
+    "aliases": [
+      "bpy",
+      "hosur"
+    ]
+  },
+  "HYB": {
+    "name": "HYDERABAD",
+    "aliases": [
+      "hyb",
+      "hyderabad"
+    ]
+  },
+  "IPR": {
+    "name": "ISLAMPUR",
+    "aliases": [
+      "ipr",
+      "islampur"
+    ]
+  },
+  "JSM": {
+    "name": "JAISALMER",
+    "aliases": [
+      "jaisalmer",
+      "jsm"
+    ]
+  },
+  "JRC": {
+    "name": "JALANDHAR CANTT.",
+    "aliases": [
+      "jalandhar cantt.",
+      "jrc"
+    ]
+  },
+  "JPG": {
+    "name": "JALPAIGURI",
+    "aliases": [
+      "jalpaiguri",
+      "jpg"
+    ]
+  },
+  "JNH": {
+    "name": "JANGHAI",
+    "aliases": [
+      "janghai",
+      "jnh"
+    ]
+  },
+  "JLR": {
+    "name": "JETALSAR",
+    "aliases": [
+      "jetalsar",
+      "jlr"
+    ]
+  },
+  "JSG": {
+    "name": "JHARSUGUDA",
+    "aliases": [
+      "jharsuguda",
+      "jsg"
+    ]
+  },
+  "JTJ": {
+    "name": "JOLARPETTAI",
+    "aliases": [
+      "jolarpettai",
+      "jtj"
+    ]
+  },
+  "PORT": {
+    "name": "KAKINADA",
+    "aliases": [
+      "cuddalore",
+      "kakinada",
+      "port"
+    ]
+  },
+  "KALYAN": {
+    "name": "BRYA",
+    "aliases": [
+      "brya",
+      "kalyan"
+    ]
+  },
+  "KNKD": {
+    "name": "KANKANADI",
+    "aliases": [
+      "kankanadi",
+      "knkd"
+    ]
+  },
+  "KANPUR": {
+    "name": "BSE",
+    "aliases": [
+      "bse",
+      "kanpur"
+    ]
+  },
+  "CPA": {
+    "name": "ANWARGANJ",
+    "aliases": [
+      "anwarganj",
+      "cpa"
+    ]
+  },
+  "KARUR": {
+    "name": "BSLE",
+    "aliases": [
+      "bsle",
+      "karur"
+    ]
+  },
+  "KGM": {
+    "name": "KATHGODAM",
+    "aliases": [
+      "kathgodam",
+      "kgm"
+    ]
+  },
+  "KATWA": {
+    "name": "BSRX",
+    "aliases": [
+      "bsrx",
+      "katwa"
+    ]
+  },
+  "KMT": {
+    "name": "KHAMMAM",
+    "aliases": [
+      "khammam",
+      "kmt"
+    ]
+  },
+  "KHURDA": {
+    "name": "BTJ",
+    "aliases": [
+      "btj",
+      "khurda"
+    ]
+  },
+  "KUR": {
+    "name": "ROAD",
+    "aliases": [
+      "kur",
+      "road"
+    ]
+  },
+  "KCVL": {
+    "name": "KOCHUVELI",
+    "aliases": [
+      "kcvl",
+      "kochuveli"
+    ]
+  },
+  "KORBA": {
+    "name": "BTPD",
+    "aliases": [
+      "btpd",
+      "korba"
+    ]
+  },
+  "KTYM": {
+    "name": "KOTTAYAM",
+    "aliases": [
+      "kottayam",
+      "ktym"
+    ]
+  },
+  "KMU": {
+    "name": "KUMBAKONAM",
+    "aliases": [
+      "kmu",
+      "kumbakonam"
+    ]
+  },
+  "KKDE": {
+    "name": "KURUKSHETRA",
+    "aliases": [
+      "kkde",
+      "kurukshetra"
+    ]
+  },
+  "LGL": {
+    "name": "LALGOLA",
+    "aliases": [
+      "lalgola",
+      "lgl"
+    ]
+  },
+  "LEDO": {
+    "name": "BUPH",
+    "aliases": [
+      "buph",
+      "ledo"
+    ]
+  },
+  "LONDA": {
+    "name": "BUT",
+    "aliases": [
+      "but",
+      "londa"
+    ]
+  },
+  "LMG": {
+    "name": "LUMDING",
+    "aliases": [
+      "lmg",
+      "lumding"
+    ]
+  },
+  "MADDUR": {
+    "name": "BVN",
+    "aliases": [
+      "bvn",
+      "maddur"
+    ]
+  },
+  "MLN": {
+    "name": "MAILANI",
+    "aliases": [
+      "mailani",
+      "mln"
+    ]
+  },
+  "MUV": {
+    "name": "MANDUADIH",
+    "aliases": [
+      "manduadih",
+      "muv"
+    ]
+  },
+  "MANMAD": {
+    "name": "CKE",
+    "aliases": [
+      "cke",
+      "manmad"
+    ]
+  },
+  "MTJ": {
+    "name": "MATHURA",
+    "aliases": [
+      "mathura",
+      "mtj"
+    ]
+  },
+  "MERTA": {
+    "name": "CKX",
+    "aliases": [
+      "ckx",
+      "merta"
+    ]
+  },
+  "MTD": {
+    "name": "ROAD",
+    "aliases": [
+      "mtd",
+      "road"
+    ]
+  },
+  "MIRAJ": {
+    "name": "CLDY",
+    "aliases": [
+      "cldy",
+      "miraj"
+    ]
+  },
+  "MB": {
+    "name": "MORADABAD",
+    "aliases": [
+      "mb",
+      "moradabad"
+    ]
+  },
+  "MUMBAI": {
+    "name": "CLR",
+    "aliases": [
+      "clr",
+      "mumbai"
+    ]
+  },
+  "BCT": {
+    "name": "CENTRAL",
+    "aliases": [
+      "bct",
+      "central"
+    ]
+  },
+  "MZR": {
+    "name": "MURTAJAPUR",
+    "aliases": [
+      "murtajapur",
+      "mzr"
+    ]
+  },
+  "NADIAD": {
+    "name": "CMU",
+    "aliases": [
+      "cmu",
+      "nadiad"
+    ]
+  },
+  "NAGDA": {
+    "name": "CMZ",
+    "aliases": [
+      "cmz",
+      "nagda"
+    ]
+  },
+  "NIR": {
+    "name": "NAINPUR",
+    "aliases": [
+      "nainpur",
+      "nir"
+    ]
+  },
+  "SRNT": {
+    "name": "SARNATH",
+    "aliases": [
+      "sarnath",
+      "srnt"
+    ]
+  },
+  "SWM": {
+    "name": "SAWAIMADHOPUR",
+    "aliases": [
+      "sawaimadhopur",
+      "swm"
+    ]
+  },
+  "SCT": {
+    "name": "SENGOTTAI",
+    "aliases": [
+      "sct",
+      "sengottai"
+    ]
+  },
+  "SXK": {
+    "name": "SHAHJAHANPUR",
+    "aliases": [
+      "shahjahanpur",
+      "sxk"
+    ]
+  },
+  "SGZ": {
+    "name": "SHAMGARH",
+    "aliases": [
+      "sgz",
+      "shamgarh"
+    ]
+  },
+  "SIHOR": {
+    "name": "CRC",
+    "aliases": [
+      "crc",
+      "sihor"
+    ]
+  },
+  "SOJN": {
+    "name": "GUJARAT",
+    "aliases": [
+      "gujarat",
+      "sojn"
+    ]
+  },
+  "SLGR": {
+    "name": "SIMALUGURI",
+    "aliases": [
+      "simaluguri",
+      "slgr"
+    ]
+  },
+  "SISWA": {
+    "name": "CRY",
+    "aliases": [
+      "cry",
+      "siswa"
+    ]
+  },
+  "SBZ": {
+    "name": "BAZAR",
+    "aliases": [
+      "bazar",
+      "sbz"
+    ]
+  },
+  "SIURI": {
+    "name": "CSM",
+    "aliases": [
+      "csm",
+      "siuri"
+    ]
+  },
+  "SUR": {
+    "name": "SOLAPUR",
+    "aliases": [
+      "solapur",
+      "sur"
+    ]
+  },
+  "SRI": {
+    "name": "CTKT",
+    "aliases": [
+      "ctkt",
+      "sri"
+    ]
+  },
+  "SOG": {
+    "name": "SURATGARH",
+    "aliases": [
+      "sog",
+      "suratgarh"
+    ]
+  },
+  "NRE": {
+    "name": "NANDALUR",
+    "aliases": [
+      "nandalur",
+      "nre"
+    ]
+  },
+  "NDL": {
+    "name": "NANDYAL",
+    "aliases": [
+      "nandyal",
+      "ndl"
+    ]
+  },
+  "NRW": {
+    "name": "NARWANA",
+    "aliases": [
+      "narwana",
+      "nrw"
+    ]
+  },
+  "NOQ": {
+    "name": "ALIPURDUAR",
+    "aliases": [
+      "alipurduar",
+      "noq"
+    ]
+  },
+  "NFK": {
+    "name": "FARAKKA",
+    "aliases": [
+      "farakka",
+      "nfk"
+    ]
+  },
+  "NDD": {
+    "name": "NIDADAVOLU",
+    "aliases": [
+      "ndd",
+      "nidadavolu"
+    ]
+  },
+  "NOLI": {
+    "name": "DAO",
+    "aliases": [
+      "dao",
+      "noli"
+    ]
+  },
+  "ORAI": {
+    "name": "DARA",
+    "aliases": [
+      "dara",
+      "orai"
+    ]
+  },
+  "PALASA": {
+    "name": "DAVM",
+    "aliases": [
+      "davm",
+      "palasa"
+    ]
+  },
+  "PNP": {
+    "name": "PANIPAT",
+    "aliases": [
+      "panipat",
+      "pnp"
+    ]
+  },
+  "PTK": {
+    "name": "PATHANKOT",
+    "aliases": [
+      "pathankot",
+      "ptk"
+    ]
+  },
+  "PFM": {
+    "name": "PHAPHAMAU",
+    "aliases": [
+      "pfm",
+      "phaphamau"
+    ]
+  },
+  "PTJ": {
+    "name": "PODANUR",
+    "aliases": [
+      "podanur",
+      "ptj"
+    ]
+  },
+  "PDKT": {
+    "name": "PUDUKOTTAI",
+    "aliases": [
+      "pdkt",
+      "pudukottai"
+    ]
+  },
+  "PURI": {
+    "name": "DDCE",
+    "aliases": [
+      "ddce",
+      "puri"
+    ]
+  },
+  "KOLLAM": {
+    "name": "DDL",
+    "aliases": [
+      "ddl",
+      "kollam"
+    ]
+  },
+  "RAIPUR": {
+    "name": "DDS",
+    "aliases": [
+      "dds",
+      "raipur"
+    ]
+  },
+  "RJQ": {
+    "name": "RAJENDRANAGAR",
+    "aliases": [
+      "rajendranagar",
+      "rjq"
+    ]
+  },
+  "RPJ": {
+    "name": "RAJPURA",
+    "aliases": [
+      "rajpura",
+      "rpj"
+    ]
+  },
+  "RMR": {
+    "name": "RAMNAGAR",
+    "aliases": [
+      "ramnagar",
+      "rmr"
+    ]
+  },
+  "RANCHI": {
+    "name": "DEW",
+    "aliases": [
+      "dew",
+      "ranchi"
+    ]
+  },
+  "RTGH": {
+    "name": "RATANGARH",
+    "aliases": [
+      "ratangarh",
+      "rtgh"
+    ]
+  },
+  "RAXAUL": {
+    "name": "DGN",
+    "aliases": [
+      "dgn",
+      "raxaul"
+    ]
+  },
+  "REWARI": {
+    "name": "DGT",
+    "aliases": [
+      "dgt",
+      "rewari"
+    ]
+  },
+  "ROU": {
+    "name": "ROURKELA",
+    "aliases": [
+      "rou",
+      "rourkela"
+    ]
+  },
+  "SRE": {
+    "name": "SAHARANPUR",
+    "aliases": [
+      "saharanpur",
+      "sre"
+    ]
+  },
+  "SRU": {
+    "name": "SALEMPUR",
+    "aliases": [
+      "salempur",
+      "sru"
+    ]
+  },
+  "SL": {
+    "name": "SURATHKAL",
+    "aliases": [
+      "sl",
+      "surathkal"
+    ]
+  },
+  "TBM": {
+    "name": "TAMBARAM",
+    "aliases": [
+      "tambaram",
+      "tbm"
+    ]
+  },
+  "TSI": {
+    "name": "TENKASI",
+    "aliases": [
+      "tenkasi",
+      "tsi"
+    ]
+  },
+  "TIG": {
+    "name": "TITLAGARH",
+    "aliases": [
+      "tig",
+      "titlagarh"
+    ]
+  },
+  "TUNDLA": {
+    "name": "HRW",
+    "aliases": [
+      "hrw",
+      "tundla"
+    ]
+  },
+  "UHP": {
+    "name": "UDHAMPUR",
+    "aliases": [
+      "udhampur",
+      "uhp"
+    ]
+  },
+  "UNA": {
+    "name": "HTD",
+    "aliases": [
+      "htd",
+      "una"
+    ]
+  },
+  "BRC": {
+    "name": "VADODARA",
+    "aliases": [
+      "brc",
+      "vadodara"
+    ]
+  },
+  "VAK": {
+    "name": "VARKALA",
+    "aliases": [
+      "vak",
+      "varkala"
+    ]
+  },
+  "BHS": {
+    "name": "VIDISHA",
+    "aliases": [
+      "bhs",
+      "vidisha"
+    ]
+  },
+  "VPT": {
+    "name": "VIRUDHUNAGAR",
+    "aliases": [
+      "virudhunagar",
+      "vpt"
+    ]
+  },
+  "WADI": {
+    "name": "IDG",
+    "aliases": [
+      "idg",
+      "wadi"
+    ]
+  },
+  "YPR": {
+    "name": "YESVANTPUR",
+    "aliases": [
+      "yesvantpur",
+      "ypr"
+    ]
+  },
+  "MAS": {
+    "name": "CHENNAI CENTRAL",
+    "aliases": [
+      "chennai central",
+      "mas"
+    ]
+  },
+  "JRU": {
+    "name": "CHIKJAJUR",
+    "aliases": [
+      "chikjajur",
+      "jru"
+    ]
+  },
+  "CRJ": {
+    "name": "CHITTARANJAN",
+    "aliases": [
+      "chittaranjan",
+      "crj"
+    ]
+  },
+  "CHUNAR": {
+    "name": "NZD",
+    "aliases": [
+      "chunar",
+      "nzd"
+    ]
+  },
+  "DAHANU": {
+    "name": "ODM",
+    "aliases": [
+      "dahanu",
+      "odm"
+    ]
+  },
+  "DRD": {
+    "name": "ROAD",
+    "aliases": [
+      "drd",
+      "road"
+    ]
+  },
+  "DMO": {
+    "name": "DAMOH",
+    "aliases": [
+      "damoh",
+      "dmo"
+    ]
+  },
+  "DVG": {
+    "name": "DAVANGERE",
+    "aliases": [
+      "davangere",
+      "dvg"
+    ]
+  },
+  "NDLS": {
+    "name": "DELHI",
+    "aliases": [
+      "delhi",
+      "ndls"
+    ]
+  },
+  "DEOS": {
+    "name": "DEORIASADAR",
+    "aliases": [
+      "deoriasadar",
+      "deos"
+    ]
+  },
+  "DAB": {
+    "name": "DHARMABAD",
+    "aliases": [
+      "dab",
+      "dharmabad"
+    ]
+  },
+  "JAJPUR": {
+    "name": "PANP",
+    "aliases": [
+      "jajpur",
+      "panp"
+    ]
+  },
+  "JMP": {
+    "name": "JAMALPUR",
+    "aliases": [
+      "jamalpur",
+      "jmp"
+    ]
+  },
+  "JSME": {
+    "name": "JASIDIH",
+    "aliases": [
+      "jasidih",
+      "jsme"
+    ]
+  },
+  "JHAJHA": {
+    "name": "PBKS",
+    "aliases": [
+      "jhajha",
+      "pbks"
+    ]
+  },
+  "JIND": {
+    "name": "PBQ",
+    "aliases": [
+      "jind",
+      "pbq"
+    ]
+  },
+  "JORHAT": {
+    "name": "PCC",
+    "aliases": [
+      "jorhat",
+      "pcc"
+    ]
+  },
+  "KCF": {
+    "name": "KALCHINI",
+    "aliases": [
+      "kalchini",
+      "kcf"
+    ]
+  },
+  "KYQ": {
+    "name": "KAMAKHYA",
+    "aliases": [
+      "kamakhya",
+      "kyq"
+    ]
+  },
+  "CAPE": {
+    "name": "KANNIYAKUMARI",
+    "aliases": [
+      "cape",
+      "kanniyakumari"
+    ]
+  },
+  "CPJ": {
+    "name": "KAPTANGANJ",
+    "aliases": [
+      "cpj",
+      "kaptanganj"
+    ]
+  },
+  "KARWAR": {
+    "name": "PDM",
+    "aliases": [
+      "karwar",
+      "pdm"
+    ]
+  },
+  "KIR": {
+    "name": "KATIHAR",
+    "aliases": [
+      "katihar",
+      "kir"
+    ]
+  },
+  "KZJ": {
+    "name": "KAZIPET",
+    "aliases": [
+      "kazipet",
+      "kzj"
+    ]
+  },
+  "KNW": {
+    "name": "KHANDWA",
+    "aliases": [
+      "khandwa",
+      "knw"
+    ]
+  },
+  "KNE": {
+    "name": "KISHANGANJ",
+    "aliases": [
+      "kishanganj",
+      "kne"
+    ]
+  },
+  "KOTA": {
+    "name": "PGG",
+    "aliases": [
+      "kota",
+      "pgg"
+    ]
+  },
+  "CLT": {
+    "name": "KOZHIKKODE",
+    "aliases": [
+      "clt",
+      "kozhikkode"
+    ]
+  },
+  "KUDA": {
+    "name": "KUNDAPURA",
+    "aliases": [
+      "kuda",
+      "kundapura"
+    ]
+  },
+  "LMP": {
+    "name": "LAKHIMPUR",
+    "aliases": [
+      "lakhimpur",
+      "lmp"
+    ]
+  },
+  "LAR": {
+    "name": "LALITPUR",
+    "aliases": [
+      "lalitpur",
+      "lar"
+    ]
+  },
+  "LOHARU": {
+    "name": "PIH",
+    "aliases": [
+      "loharu",
+      "pih"
+    ]
+  },
+  "HILSA": {
+    "name": "PIT",
+    "aliases": [
+      "hilsa",
+      "pit"
+    ]
+  },
+  "HISAR": {
+    "name": "PJK",
+    "aliases": [
+      "hisar",
+      "pjk"
+    ]
+  },
+  "HBG": {
+    "name": "HOWBADH",
+    "aliases": [
+      "hbg",
+      "howbadh"
+    ]
+  },
+  "IGP": {
+    "name": "IGATPURI",
+    "aliases": [
+      "igatpuri",
+      "igp"
+    ]
+  },
+  "ITARSI": {
+    "name": "PKRD",
+    "aliases": [
+      "itarsi",
+      "pkrd"
+    ]
+  }
+}
