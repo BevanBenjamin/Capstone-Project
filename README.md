@@ -86,7 +86,7 @@ Capstone-Project/
 │
 ├── static/                 # 🖼️ Static assets (CSS, Images, JS)
 │
-├── data/                   # 💾 Data storage (if applicable)
+├── data/                   # 💾 Data storage
 │
 ├── emergency_reports.log   # 📝 Auto-generated log for emergencies
 └── contacts.log            # 📝 Auto-generated log for contact forms
